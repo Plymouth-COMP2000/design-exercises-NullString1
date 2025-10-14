@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">COMP2000</string>
+    <string name="new_reservation">New Reservation</string>
+    <string name="submit_changes">Submit Changes</string>
+    <string name="total_guests">Total Guests</string>
+    <string name="children">Children</string>
+    <string name="high_chairs">High Chairs</string>
+</resources>
