@@ -5,4 +5,73 @@
     <string name="total_guests">Total Guests</string>
     <string name="children">Children</string>
     <string name="high_chairs">High Chairs</string>
+    <string name="confirm_current_password">Confirm Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="email_address">Email Address</string>
+
+    <!-- App UI strings (extracted) -->
+    <string name="guest_details">Guest Details</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="login">Login</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="app_logo_desc">App Logo</string>
+
+    <string name="select_date">Select Date</string>
+    <string name="day_label">Day</string>
+    <string name="month_label">Month</string>
+    <string name="year_label">Year</string>
+
+    <string name="reservation_date_placeholder">10th JAN</string>
+    <string name="reservation_time_placeholder">12.00 PM</string>
+    <string name="reservation_party_size_placeholder">4</string>
+
+    <string name="create_reservation">Create Reservation</string>
+
+    <string name="notification_preferences">Notification Preferences</string>
+    <string name="reservation_changes">Reservation Changes</string>
+    <string name="reservation_reminders">Reservation Reminders</string>
+    <string name="menu_changes">Menu Changes</string>
+    <string name="about_me">About Me</string>
+    <string name="name_label">Name</string>
+    <string name="email_label">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+
+    <string name="edit_reservation">Edit Reservation</string>
+    <string name="delete_reservation_desc">Delete reservation</string>
+
+    <string name="item_name">Item Name</string>
+    <string name="item_description">item description</string>
+    <string name="item_image_desc">Item image</string>
+
+    <!-- Time Picker strings -->
+    <string name="select_time">Select Time</string>
+    <string name="hour_label">Hour</string>
+    <string name="minute_label">Minute</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="example_tab">example tab</string>
+    <string name="register">Register</string>
+
+    <!-- Navigation Drawer strings -->
+    <string name="menu">Menu</string>
+    <string name="my_reservations">My Reservations</string>
+    <string name="preferences">Preferences</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="send">Send</string>
+    <string name="nav_header_title">COMP2000 Restaurant App</string>
+    <string name="nav_header_subtitle">Your favourite food in your favourite place</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="contact_us">Contact Us</string>
 </resources>
