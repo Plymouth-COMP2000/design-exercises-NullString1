@@ -10,9 +10,6 @@ import android.widget.NumberPicker;
 import uk.ac.plymouth.danielkern.comp2000.R;
 
 public class DatePicker extends LinearLayout {
-    private NumberPicker dayPicker;
-    private NumberPicker monthPicker;
-    private NumberPicker yearPicker;
 
     public DatePicker(Context context) {
         super(context);
@@ -32,9 +29,9 @@ public class DatePicker extends LinearLayout {
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.date_picker, this, true);
 
-        dayPicker = findViewById(R.id.hourPicker);
-        monthPicker = findViewById(R.id.ampmPicker);
-        yearPicker = findViewById(R.id.yearPicker);
+        NumberPicker dayPicker = findViewById(R.id.hourPicker);
+        NumberPicker monthPicker = findViewById(R.id.ampmPicker);
+        NumberPicker yearPicker = findViewById(R.id.yearPicker);
 
         dayPicker.setMinValue(1);
         dayPicker.setMaxValue(31);

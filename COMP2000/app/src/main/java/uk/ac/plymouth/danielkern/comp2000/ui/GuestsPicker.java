@@ -39,6 +39,29 @@ public class GuestsPicker extends LinearLayout {
         totalGuestsI.setText("1");
         childrenI.setText("0");
         highChairsI.setText("0");
+    }
 
+    public int getGuests() {
+        return Integer.parseInt(totalGuestsI.getText().toString());
+    }
+
+    public int getChildren() {
+        return Integer.parseInt(childrenI.getText().toString());
+    }
+
+    public int getHighChairs() {
+        return Integer.parseInt(highChairsI.getText().toString());
+    }
+
+    public void setGuests(int guests) {
+        totalGuestsI.setText(String.valueOf(guests));
+    }
+
+    public void setChildren(int children) {
+        childrenI.setText(String.valueOf(children));
+    }
+
+    public void setHighChairs(int highChairs) {
+        highChairsI.setText(String.valueOf(highChairs));
     }
 }

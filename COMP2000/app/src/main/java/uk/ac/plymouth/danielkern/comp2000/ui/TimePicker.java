@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
+import java.time.LocalDateTime;
+
 import uk.ac.plymouth.danielkern.comp2000.R;
 
 public class TimePicker extends LinearLayout {
@@ -39,5 +41,17 @@ public class TimePicker extends LinearLayout {
         minutePicker.setMinValue(0);
         minutePicker.setMaxValue(3);
         minutePicker.setDisplayedValues(new String[]{"00", "15", "30", "45"});
+    }
+
+    public LocalDateTime getTime() {
+        int hour = hourPicker.getValue();
+        int minute = minutePicker.getValue() * 15; // Convert picker value to actual minutes
+        LocalDateTime now = LocalDateTime.now();
+        return LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), hour, minute);
+    }
+
+    public void setTime(LocalDateTime time) {
+        hourPicker.setValue(time.getHour());
+        minutePicker.setValue(time.getMinute() / 15); // Convert actual minutes to picker value
     }
 }

@@ -15,19 +15,17 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.adapter.MenuAdapter;
-import uk.ac.plymouth.danielkern.comp2000.data.Menu;
+import uk.ac.plymouth.danielkern.comp2000.data.MenuSingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
 
 public class MenuFragment extends Fragment {
 
     RecyclerView menuRecyclerView;
 
-    Menu menu = new Menu();
+    final MenuSingleton menuSingleton = MenuSingleton.getInstance();
 
     @Nullable
     @Override
@@ -36,12 +34,12 @@ public class MenuFragment extends Fragment {
     }
 
     public void testMenu() {
-        if (!menu.isEmpty()){
+        if (!menuSingleton.isEmpty()){
             return;
         }
-        menu.addCategory("Starters");
-        menu.addCategory("Mains");
-        menu.addCategory("Desserts");
+        menuSingleton.addCategory("Starters");
+        menuSingleton.addCategory("Mains");
+        menuSingleton.addCategory("Desserts");
         ArrayList<MenuItem> starters = new ArrayList<>(Arrays.asList(new MenuItem("Bruschetta", "Grilled bread topped with diced tomatoes, garlic, basil, and olive oil.", 5.00F),
                 new MenuItem("Stuffed Mushrooms", "Mushroom caps filled with a savory mixture of cheese, herbs, and breadcrumbs.", 6.50F)));
         ArrayList<MenuItem> mains = new ArrayList<>(Arrays.asList(
@@ -52,9 +50,9 @@ public class MenuFragment extends Fragment {
                 new MenuItem("Tiramisu", "Layered Italian dessert with coffee-soaked ladyfingers, mascarpone cheese, and cocoa powder.", 6.00F),
                 new MenuItem("Panna Cotta", "Creamy Italian dessert topped with fresh berries or fruit sauce.", 5.50F)
         ));
-        menu.addItemsToCategory("Starters", starters);
-        menu.addItemsToCategory("Mains", mains);
-        menu.addItemsToCategory("Desserts", desserts);
+        menuSingleton.addItemsToCategory("Starters", starters);
+        menuSingleton.addItemsToCategory("Mains", mains);
+        menuSingleton.addItemsToCategory("Desserts", desserts);
     }
 
     @Override
@@ -64,13 +62,13 @@ public class MenuFragment extends Fragment {
         menuRecyclerView = view.findViewById(R.id.menuRecycler);
         TabLayout menuTabber = view.findViewById(R.id.menuTabber);
 
-        menu.getCategories().forEach((category) -> {
+        menuSingleton.getCategories().forEach((category) -> {
             TabLayout.Tab tab = menuTabber.newTab();
             tab.setText(category);
             menuTabber.addTab(tab);
         });
         TabLayout.Tab currentTab = menuTabber.getTabAt(menuTabber.getSelectedTabPosition());
-        MenuAdapter adapter = new MenuAdapter(menu.getItemsByCategory(currentTab.getText().toString()).toArray(new MenuItem[0]));
+        MenuAdapter adapter = new MenuAdapter(menuSingleton.getItemsByCategory(currentTab != null ? currentTab.getText() != null ? currentTab.getText().toString() : null : null).toArray(new MenuItem[0]));
 
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         menuRecyclerView.setAdapter(adapter);
@@ -78,8 +76,11 @@ public class MenuFragment extends Fragment {
         menuTabber.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                String category = tab.getText().toString();
-                ArrayList<MenuItem> items = menu.getItemsByCategory(category);
+                String category = null;
+                if (tab.getText() != null) {
+                    category = tab.getText().toString();
+                }
+                ArrayList<MenuItem> items = menuSingleton.getItemsByCategory(category);
                 adapter.setMenuItems(items.toArray(new MenuItem[0]));
             }
 

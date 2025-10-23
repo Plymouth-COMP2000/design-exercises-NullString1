@@ -61,7 +61,11 @@
         android:id="@+id/guestNewReservationFragment"
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.GuestNewReservationFragment"
         android:label="New Reservation"
-        tools:layout="@layout/fragment_guest_new_reservation" />
+        tools:layout="@layout/fragment_guest_new_reservation" >
+        <action
+            android:id="@+id/action_guestNewReservationFragment_to_guestReservationsFragment"
+            app:destination="@id/guestReservationsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/guestEditReservationFragment"

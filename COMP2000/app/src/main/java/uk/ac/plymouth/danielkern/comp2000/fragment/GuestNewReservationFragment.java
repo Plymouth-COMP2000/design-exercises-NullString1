@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
+import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
+import uk.ac.plymouth.danielkern.comp2000.data.ReservationsSingleton;
+import uk.ac.plymouth.danielkern.comp2000.ui.GuestsPicker;
+import uk.ac.plymouth.danielkern.comp2000.ui.TimePicker;
 
 public class GuestNewReservationFragment extends Fragment {
 
@@ -23,5 +29,15 @@ public class GuestNewReservationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        TimePicker timePicker = view.findViewById(R.id.timePicker);
+        GuestsPicker guestsPicker = view.findViewById(R.id.guestPicker);
+        Button createReservationButton = view.findViewById(R.id.submitB2);
+
+        ReservationsSingleton reservationsSingleton = ReservationsSingleton.getInstance();
+
+        createReservationButton.setOnClickListener(v -> {
+            reservationsSingleton.addReservation(new ReservationItem(timePicker.getTime(), guestsPicker.getGuests(), guestsPicker.getChildren(), guestsPicker.getHighChairs()));
+            Navigation.findNavController(view).navigate(R.id.action_guestNewReservationFragment_to_guestReservationsFragment);
+        });
     }
 }

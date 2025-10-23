@@ -26,8 +26,6 @@ public class PreferencesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button editProfileB = view.findViewById(R.id.editProfB);
-        editProfileB.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_preferencesFragment_to_editMyProfileFragment);
-        });
+        editProfileB.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_preferencesFragment_to_editMyProfileFragment));
     }
 }

@@ -3,7 +3,6 @@ package uk.ac.plymouth.danielkern.comp2000.data;
 public class MenuItem {
     private final String name;
     private final String description;
-
     private final float price;
 
     public MenuItem(String name, String description, float price) {
@@ -18,10 +17,6 @@ public class MenuItem {
 
     public String getDescription() {
         return description;
-    }
-
-    public float getPrice() {
-        return price;
     }
 
 }

@@ -8,10 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
-
 import uk.ac.plymouth.danielkern.comp2000.R;
-import uk.ac.plymouth.danielkern.comp2000.data.Menu;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
@@ -47,7 +44,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView itemName, itemDescription;
+        final TextView itemName;
+        final TextView itemDescription;
         public ViewHolder(android.view.View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
