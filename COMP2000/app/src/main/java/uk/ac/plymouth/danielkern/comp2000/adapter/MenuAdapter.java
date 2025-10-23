@@ -8,21 +8,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
+
 import uk.ac.plymouth.danielkern.comp2000.R;
+import uk.ac.plymouth.danielkern.comp2000.data.Menu;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private MenuItem[] menuItems;
 
-    private TextView itemName, itemDescription;
-
-    public MenuAdapter(MenuItem[] menuItems) {
+    public MenuAdapter(MenuItem[] menuItems){
         this.menuItems = menuItems;
     }
 
     public void setMenuItems(MenuItem[] menuItems) {
         this.menuItems = menuItems;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -34,11 +36,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        itemName = holder.itemView.findViewById(R.id.itemName);
-        itemDescription = holder.itemView.findViewById(R.id.itemDesc);
-
-        itemName.setText(menuItems[position].getName());
-        itemDescription.setText(menuItems[position].getDescription());
+        MenuItem item = menuItems[position];
+        holder.itemName.setText(item.getName());
+        holder.itemDescription.setText(item.getDescription());
     }
 
     @Override
@@ -47,8 +47,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView itemName, itemDescription;
         public ViewHolder(android.view.View itemView) {
             super(itemView);
+            itemName = itemView.findViewById(R.id.itemName);
+            itemDescription = itemView.findViewById(R.id.itemDesc);
         }
     }
 }

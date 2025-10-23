@@ -4,7 +4,10 @@ public class MenuItem {
     private final String name;
     private final String description;
 
-    public MenuItem(String name, String description) {
+    private final float price;
+
+    public MenuItem(String name, String description, float price) {
+        this.price = price;
         this.name = name;
         this.description = description;
     }
@@ -15,6 +18,10 @@ public class MenuItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public float getPrice() {
+        return price;
     }
 
 }

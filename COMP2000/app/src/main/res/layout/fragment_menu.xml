@@ -26,14 +26,7 @@
             app:tabSelectedTextColor="@color/primary"
             app:tabTextColor="@color/text_secondary"
             app:tabMode="scrollable"
-            app:tabGravity="fill">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/example_tab" />
-
-        </com.google.android.material.tabs.TabLayout>
+            app:tabGravity="fill"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -111,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navController.navigate(R.id.guestReservationsFragment);
         } else if (id == R.id.nav_new_reservation) {
             navController.navigate(R.id.guestNewReservationFragment);
-        } else if (id == R.id.nav_profile) {
-            navController.navigate(R.id.editMyProfileFragment);
         } else if (id == R.id.nav_preferences) {
             navController.navigate(R.id.preferencesFragment);
         }

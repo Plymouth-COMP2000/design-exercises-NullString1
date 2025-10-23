@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/menuFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -40,9 +40,6 @@
             android:id="@+id/action_menu_to_new_reservation"
             app:destination="@id/guestNewReservationFragment" />
         <action
-            android:id="@+id/action_menu_to_profile"
-            app:destination="@id/editMyProfileFragment" />
-        <action
             android:id="@+id/action_menu_to_preferences"
             app:destination="@id/preferencesFragment" />
     </fragment>
@@ -55,6 +52,9 @@
         <action
             android:id="@+id/action_reservations_to_edit"
             app:destination="@id/guestEditReservationFragment" />
+        <action
+            android:id="@+id/action_guestRes_to_newRes"
+            app:destination="@id/guestNewReservationFragment" />
     </fragment>
 
     <fragment
@@ -79,6 +79,10 @@
         android:id="@+id/preferencesFragment"
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.PreferencesFragment"
         android:label="Preferences"
-        tools:layout="@layout/fragment_preferences" />
+        tools:layout="@layout/fragment_preferences" >
+        <action
+            android:id="@+id/action_preferencesFragment_to_editMyProfileFragment"
+            app:destination="@id/editMyProfileFragment" />
+    </fragment>
 
 </navigation>
