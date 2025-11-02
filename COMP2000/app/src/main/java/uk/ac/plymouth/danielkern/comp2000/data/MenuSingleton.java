@@ -1,16 +1,16 @@
 package uk.ac.plymouth.danielkern.comp2000.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Set;
 
 public class MenuSingleton {
-    private final HashMap<String, ArrayList<MenuItem>> menu;
+    private final LinkedHashMap<String, ArrayList<MenuItem>> menu;
 
     private static MenuSingleton instance;
     public MenuSingleton() {
-        menu = new HashMap<>();
+        menu = new LinkedHashMap<>();
     }
 
     public static synchronized MenuSingleton getInstance() {

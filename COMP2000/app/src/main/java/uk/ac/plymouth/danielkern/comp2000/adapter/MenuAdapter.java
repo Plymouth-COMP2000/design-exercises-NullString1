@@ -3,10 +3,13 @@ package uk.ac.plymouth.danielkern.comp2000.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Locale;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
@@ -36,6 +39,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         MenuItem item = menuItems[position];
         holder.itemName.setText(item.getName());
         holder.itemDescription.setText(item.getDescription());
+        holder.itemImage.setImageDrawable(item.getImage());
+        holder.itemPrice.setText(String.format(Locale.getDefault(), "£%.2f", item.getPrice()));
     }
 
     @Override
@@ -44,12 +49,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView itemName;
-        final TextView itemDescription;
+        final TextView itemName, itemDescription, itemPrice;
+        final ImageView itemImage;
         public ViewHolder(android.view.View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
             itemDescription = itemView.findViewById(R.id.itemDesc);
+            itemPrice = itemView.findViewById(R.id.itemPrice);
+            itemImage = itemView.findViewById(R.id.itemImage);
         }
     }
 }

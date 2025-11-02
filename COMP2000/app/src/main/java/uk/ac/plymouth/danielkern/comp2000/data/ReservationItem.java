@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ReservationItem {
-    private UUID reservationId;
+    private final UUID reservationId;
     private final LocalDateTime reservationTime;
     private final int numberOfGuests;
     private int numberOfChildren;

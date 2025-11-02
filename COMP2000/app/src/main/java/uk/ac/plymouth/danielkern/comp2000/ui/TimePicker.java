@@ -45,13 +45,13 @@ public class TimePicker extends LinearLayout {
 
     public LocalDateTime getTime() {
         int hour = hourPicker.getValue();
-        int minute = minutePicker.getValue() * 15; // Convert picker value to actual minutes
+        int minute = minutePicker.getValue() * 15;
         LocalDateTime now = LocalDateTime.now();
         return LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), hour, minute);
     }
 
     public void setTime(LocalDateTime time) {
         hourPicker.setValue(time.getHour());
-        minutePicker.setValue(time.getMinute() / 15); // Convert actual minutes to picker value
+        minutePicker.setValue(time.getMinute() / 15);
     }
 }

@@ -27,17 +27,17 @@
             app:tabTextColor="@color/text_secondary"
             app:tabMode="scrollable"
             app:tabGravity="fill"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menuRecycler"
+    <!-- ViewPager2 hosts pages for each category so swiping works -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/menuViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="@dimen/spacing_sm"
-        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

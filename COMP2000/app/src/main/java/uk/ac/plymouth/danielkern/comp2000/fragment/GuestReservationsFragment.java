@@ -19,10 +19,11 @@ import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.adapter.ReservationsAdapter;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationsSingleton;
+import uk.ac.plymouth.danielkern.comp2000.decoration.DividerItemDecoration;
 
 public class GuestReservationsFragment extends Fragment {
 
-    ReservationsSingleton reservationsSingleton = ReservationsSingleton.getInstance();
+    final ReservationsSingleton reservationsSingleton = ReservationsSingleton.getInstance();
 
     @Nullable
     @Override
@@ -49,5 +50,8 @@ public class GuestReservationsFragment extends Fragment {
         RecyclerView reservationsRecycler = view.findViewById(R.id.reservationsRecycler);
         reservationsRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         reservationsRecycler.setAdapter(new ReservationsAdapter(reservationsSingleton.getReservationsData()));
+
+        DividerItemDecoration decoration = new DividerItemDecoration(requireContext(), R.drawable.divider);
+        reservationsRecycler.addItemDecoration(decoration);
     }
 }

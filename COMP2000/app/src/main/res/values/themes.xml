@@ -114,7 +114,6 @@
         <item name="strokeColor">@color/divider</item>
         <item name="strokeWidth">1dp</item>
     </style>
-
     <style name="NumberPickerTheme" parent="Theme.COMP2000">
         <item name="colorControlNormal">@color/primary</item>
         <item name="android:textColorPrimary">@color/text_primary</item>

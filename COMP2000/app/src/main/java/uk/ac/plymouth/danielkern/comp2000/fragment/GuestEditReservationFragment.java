@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.UUID;
-
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationsSingleton;
@@ -19,7 +17,7 @@ import uk.ac.plymouth.danielkern.comp2000.ui.TimePicker;
 
 public class GuestEditReservationFragment extends Fragment {
 
-    ReservationsSingleton reservationsSingleton = ReservationsSingleton.getInstance();
+    final ReservationsSingleton reservationsSingleton = ReservationsSingleton.getInstance();
 
     @Nullable
     @Override
