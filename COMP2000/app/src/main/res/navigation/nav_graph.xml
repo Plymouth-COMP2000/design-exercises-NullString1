@@ -88,5 +88,10 @@
             android:id="@+id/action_preferencesFragment_to_editMyProfileFragment"
             app:destination="@id/editMyProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/staffTodayResFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffTodayResFragment"
+        android:label="fragment_staff_todays_reservations"
+        tools:layout="@layout/fragment_staff_todays_reservations" />
 
 </navigation>

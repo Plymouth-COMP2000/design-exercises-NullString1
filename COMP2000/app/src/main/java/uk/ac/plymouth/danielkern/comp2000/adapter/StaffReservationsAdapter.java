@@ -17,27 +17,34 @@ import java.util.Locale;
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
 
-public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapter.ViewHolder> {
+public class StaffReservationsAdapter extends RecyclerView.Adapter<StaffReservationsAdapter.ViewHolder> {
 
-    private final ReservationItem[] reservationItems;
-    public ReservationsAdapter(ReservationItem[] reservationItems){
+    private ReservationItem[] reservationItems;
+
+    public StaffReservationsAdapter(ReservationItem[] reservationItems){
         this.reservationItems = reservationItems;
+    }
+
+    public void updateReservations(ReservationItem[] newReservations) {
+        this.reservationItems = newReservations;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservation_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.staff_reservation_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ReservationItem item = reservationItems[position];
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd MM : hh.mm a", Locale.getDefault());
-        String[] formattedDate = item.getReservationTime().format(fmt).split(":");
-        holder.reservationDate.setText(formattedDate[0]);
-        holder.reservationTime.setText(formattedDate[1]);
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("hh.mm a", Locale.getDefault());
+        String formattedDate = item.getReservationTime().format(fmt);
+        holder.reservationTime.setText(formattedDate);
+        holder.reservationName.setText(item.getCustomerName());
+
         holder.reservationPeople.setText(String.format(Locale.getDefault(), "%d", item.getNumberOfGuests()));
 
         holder.layout.setOnClickListener(v -> {
@@ -53,7 +60,7 @@ public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView reservationDate;
+        final TextView reservationName;
         final TextView reservationTime;
         final TextView reservationPeople;
 
@@ -61,10 +68,10 @@ public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            reservationDate = itemView.findViewById(R.id.reservationTime);
-            reservationTime = itemView.findViewById(R.id.reservationName);
+            reservationName = itemView.findViewById(R.id.reservationName);
+            reservationTime = itemView.findViewById(R.id.reservationTime);
             reservationPeople = itemView.findViewById(R.id.reservationPeople);
-            layout = (ConstraintLayout) reservationDate.getParent();
+            layout = (ConstraintLayout) reservationName.getParent();
         }
     }
 }

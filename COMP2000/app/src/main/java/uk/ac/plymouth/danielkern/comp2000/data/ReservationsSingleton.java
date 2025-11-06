@@ -1,5 +1,6 @@
 package uk.ac.plymouth.danielkern.comp2000.data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReservationsSingleton {
@@ -19,6 +20,16 @@ public class ReservationsSingleton {
 
     public ReservationItem[] getReservationsData() {
         return reservationsData.toArray(new ReservationItem[0]);
+    }
+
+    public ReservationItem[] getReservationsByDate(LocalDate date) {
+        ArrayList<ReservationItem> filteredReservations = new ArrayList<>();
+        for (ReservationItem item : reservationsData) {
+            if (item.getReservationTime().toLocalDate().equals(date)) {
+                filteredReservations.add(item);
+            }
+        }
+        return filteredReservations.toArray(new ReservationItem[0]);
     }
 
     public ReservationItem getReservationById(String reservationId) {
