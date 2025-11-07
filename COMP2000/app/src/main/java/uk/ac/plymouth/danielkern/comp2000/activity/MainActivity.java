@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int destId = destination.getId();
-            if (destId == R.id.menuFragment || destId == R.id.guestReservationsFragment ||
-                destId == R.id.guestNewReservationFragment || destId == R.id.editMyProfileFragment ||
-                destId == R.id.preferencesFragment) {
+            if (destId != R.id.loginFragment && destId != R.id.registerFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 if (getSupportActionBar() != null) {
                     getSupportActionBar().show();

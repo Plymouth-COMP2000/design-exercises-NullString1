@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.StaffTodayResFragment">
+    tools:context=".fragment.StaffAllResFragment">
 
     <uk.ac.plymouth.danielkern.comp2000.ui.HorizontalDatePicker
         android:id="@+id/horizontalDatePicker"

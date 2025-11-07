@@ -43,13 +43,13 @@ public class StaffReservationsAdapter extends RecyclerView.Adapter<StaffReservat
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("hh.mm a", Locale.getDefault());
         String formattedDate = item.getReservationTime().format(fmt);
         holder.reservationTime.setText(formattedDate);
-        holder.reservationName.setText(item.getCustomerName());
+        holder.reservationName.setText(item.getCustomerFirstName());
 
         holder.reservationPeople.setText(String.format(Locale.getDefault(), "%d", item.getNumberOfGuests()));
 
         holder.layout.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putString("reservationUUID", item.getReservationId().toString());
+            args.putInt("reservationId", item.getReservationId());
             Navigation.findNavController(v).navigate(R.id.action_reservations_to_edit, args);
         });
     }

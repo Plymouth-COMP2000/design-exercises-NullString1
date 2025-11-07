@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_menu_to_preferences"
             app:destination="@id/preferencesFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffAllResFragment"
+            app:destination="@id/staffAllResFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffTodayResFragment"
+            app:destination="@id/staffTodayResFragment" />
     </fragment>
 
     <fragment
@@ -91,7 +97,11 @@
     <fragment
         android:id="@+id/staffTodayResFragment"
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffTodayResFragment"
-        android:label="fragment_staff_todays_reservations"
-        tools:layout="@layout/fragment_staff_todays_reservations" />
+        android:label="fragment_staff_todays_reservations" />
+    <fragment
+        android:id="@+id/staffAllResFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffAllResFragment"
+        android:label="fragment_staff_all_reservations"
+        tools:layout="@layout/fragment_staff_all_reservations" />
 
 </navigation>

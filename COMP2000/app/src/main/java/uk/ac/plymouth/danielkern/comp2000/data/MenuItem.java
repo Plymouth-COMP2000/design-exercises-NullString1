@@ -6,7 +6,6 @@ public class MenuItem {
     private final String name;
     private final String description;
     private final float price;
-
     private final Drawable image;
 
 

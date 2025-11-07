@@ -1,13 +1,13 @@
 package uk.ac.plymouth.danielkern.comp2000.data;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class ReservationItem {
-    private final UUID reservationId;
-    private String customerName;
-    private final LocalDateTime reservationTime;
-    private final int numberOfGuests;
+    private int reservationId;
+    private String customerFirstName;
+    private String customerLastName;
+    private LocalDateTime reservationTime;
+    private int numberOfGuests;
     private int numberOfChildren;
     private int numberOfHighChairs;
 
@@ -16,11 +16,30 @@ public class ReservationItem {
         this.numberOfGuests = numberOfGuests;
         this.numberOfChildren = numberOfChildren;
         this.numberOfHighChairs = numberOfHighChairs;
-        this.reservationId = UUID.randomUUID();
     }
 
-    public ReservationItem(String customerName, LocalDateTime reservationTime, int numberOfGuests, int numberOfChildren, int numberOfHighChairs, UUID reservationId) {
-        this.customerName = customerName;
+    public void setCustomerFirstName(String customerFirstName) {
+        this.customerFirstName = customerFirstName;
+    }
+
+    public void setNumberOfChildren(int numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }
+
+    public void setNumberOfGuests(int numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
+    }
+
+    public void setReservationTime(LocalDateTime reservationTime) {
+        this.reservationTime = reservationTime;
+    }
+
+    public void setNumberOfHighChairs(int numberOfHighChairs) {
+        this.numberOfHighChairs = numberOfHighChairs;
+    }
+
+    public ReservationItem(int reservationId, String customerFirstName, String customerLastName, LocalDateTime reservationTime, int numberOfGuests, int numberOfChildren, int numberOfHighChairs) {
+        this.customerFirstName = customerFirstName;
         this.reservationTime = reservationTime;
         this.numberOfGuests = numberOfGuests;
         this.numberOfChildren = numberOfChildren;
@@ -28,18 +47,17 @@ public class ReservationItem {
         this.reservationId = reservationId;
     }
 
-    public ReservationItem(LocalDateTime reservationTime, int numberOfGuests, String customerName) {
+    public ReservationItem(LocalDateTime reservationTime, int numberOfGuests, String customerFirstName) {
         this.reservationTime = reservationTime;
         this.numberOfGuests = numberOfGuests;
-        this.customerName = customerName;
-        this.reservationId = UUID.randomUUID();
+        this.customerFirstName = customerFirstName;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerFirstName() {
+        return customerFirstName;
     }
 
-    public UUID getReservationId() {
+    public int getReservationId() {
         return reservationId;
     }
 
@@ -57,5 +75,13 @@ public class ReservationItem {
 
     public int getNumberOfHighChairs() {
         return numberOfHighChairs;
+    }
+
+    public String gettCustomerLastName() {
+        return customerLastName;
+    }
+
+    public void setCustomerLastName(String customerLastName) {
+        this.customerLastName = customerLastName;
     }
 }

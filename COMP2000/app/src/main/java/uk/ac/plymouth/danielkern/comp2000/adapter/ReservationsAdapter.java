@@ -34,6 +34,7 @@ public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ReservationItem item = reservationItems[position];
+        if (item == null) return;
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd MM : hh.mm a", Locale.getDefault());
         String[] formattedDate = item.getReservationTime().format(fmt).split(":");
         holder.reservationDate.setText(formattedDate[0]);
@@ -42,7 +43,7 @@ public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapte
 
         holder.layout.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putString("reservationUUID", item.getReservationId().toString());
+            args.putInt("reservationId", item.getReservationId());
             Navigation.findNavController(v).navigate(R.id.action_reservations_to_edit, args);
         });
     }
