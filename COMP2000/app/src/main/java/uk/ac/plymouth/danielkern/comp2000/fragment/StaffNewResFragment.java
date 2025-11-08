@@ -32,7 +32,7 @@ public class StaffNewResFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_staff_new_res, container, false);
 
         final LocalDate localDate;
-        if (requireArguments().containsKey("date")) {
+        if (getArguments() != null && requireArguments().containsKey("date")) {
             String date = requireArguments().getString("date");
             localDate = LocalDate.parse(date);
         } else {

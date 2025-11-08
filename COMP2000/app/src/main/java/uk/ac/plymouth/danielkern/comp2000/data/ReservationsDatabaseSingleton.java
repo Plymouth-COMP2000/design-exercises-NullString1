@@ -85,7 +85,7 @@ public class ReservationsDatabaseSingleton {
 
         public ReservationItem[] getReservationsByDate(LocalDate date) {
             SQLiteDatabase db = ReservationsDatabaseSingleton.instance.readableDb;
-            String query = "SELECT * FROM reservation WHERE datetime BETWEEN ? AND ?";
+            String query = "SELECT * FROM reservation WHERE datetime BETWEEN ? AND ? ORDER BY datetime ASC";
             String dayStart = date.atStartOfDay().withHour(0).withMinute(0).withSecond(0).withNano(0).toString();
             String dayEnd = date.atStartOfDay().withHour(23).withMinute(59).withSecond(59).withNano(999999).toString();
             Cursor cursor = db.rawQuery(query, new String[]{dayStart, dayEnd});
