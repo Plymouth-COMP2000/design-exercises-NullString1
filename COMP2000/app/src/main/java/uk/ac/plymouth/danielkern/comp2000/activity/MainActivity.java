@@ -1,6 +1,7 @@
 package uk.ac.plymouth.danielkern.comp2000.activity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
 
+    private NavigationView navigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -70,11 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.menuFragment, R.id.guestReservationsFragment, R.id.guestNewReservationFragment,
-                R.id.editMyProfileFragment, R.id.preferencesFragment)
-                .setOpenableLayout(drawerLayout)
-                .build();
+        updateNavBarPerUserType();
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -97,6 +97,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
+    }
+
+    public void updateNavBarPerUserType() {
+        Menu navMenu = navigationView.getMenu();
+        switch (getSharedPreferences("user_prefs", MODE_PRIVATE).getString("user_type", "")) {
+            case "GUEST" -> {
+                appBarConfiguration = new AppBarConfiguration.Builder(
+                        R.id.menuFragment, R.id.guestReservationsFragment, R.id.guestNewReservationFragment,
+                        R.id.editMyProfileFragment, R.id.preferencesFragment)
+                        .setOpenableLayout(drawerLayout)
+                        .build();
+                navMenu.findItem(R.id.nav_my_reservations).setVisible(true);
+                navMenu.findItem(R.id.nav_new_reservation).setVisible(true);
+                navMenu.findItem(R.id.nav_all_reservations).setVisible(false);
+                navMenu.findItem(R.id.nav_todays_reservations).setVisible(false);
+            }
+            case "STAFF" -> {
+                appBarConfiguration = new AppBarConfiguration.Builder(
+                        R.id.menuFragment, R.id.staffAllResFragment, R.id.staffTodayResFragment,
+                        R.id.editMyProfileFragment, R.id.preferencesFragment)
+                        .setOpenableLayout(drawerLayout)
+                        .build();
+                navMenu.findItem(R.id.nav_my_reservations).setVisible(false);
+                navMenu.findItem(R.id.nav_new_reservation).setVisible(false);
+                navMenu.findItem(R.id.nav_all_reservations).setVisible(true);
+                navMenu.findItem(R.id.nav_todays_reservations).setVisible(true);
+            }
+            default -> {
+                appBarConfiguration = new AppBarConfiguration.Builder(
+                        R.id.menuFragment, R.id.guestReservationsFragment, R.id.guestNewReservationFragment,
+                        R.id.editMyProfileFragment, R.id.preferencesFragment)
+                        .setOpenableLayout(drawerLayout)
+                        .build();
+            }
+        }
     }
 
     @Override

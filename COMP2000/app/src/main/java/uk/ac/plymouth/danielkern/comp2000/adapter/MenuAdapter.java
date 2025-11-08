@@ -37,10 +37,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MenuItem item = menuItems[position];
-        holder.itemName.setText(item.getName());
-        holder.itemDescription.setText(item.getDescription());
-        holder.itemImage.setImageDrawable(item.getImage());
-        holder.itemPrice.setText(String.format(Locale.getDefault(), "£%.2f", item.getPrice()));
+        holder.itemName.setText(item.name());
+        holder.itemDescription.setText(item.description());
+        holder.itemImage.setImageDrawable(item.image());
+        holder.itemPrice.setText(String.format(Locale.getDefault(), "£%.2f", item.price()));
     }
 
     @Override

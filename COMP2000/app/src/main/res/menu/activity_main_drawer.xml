@@ -9,6 +9,15 @@
             android:icon="@drawable/ic_menu"
             android:title="@string/menu" />
         <item
+            android:id="@+id/nav_todays_reservations"
+            android:icon="@android:drawable/ic_menu_today"
+            android:iconTint="#000000"
+            android:title="@string/today_s_reservations" />
+        <item
+            android:id="@+id/nav_all_reservations"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="@string/all_reservations" />
+        <item
             android:id="@+id/nav_my_reservations"
             android:icon="@android:drawable/ic_dialog_dialer"
             android:title="@string/my_reservations" />

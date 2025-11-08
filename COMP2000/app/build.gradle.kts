@@ -26,8 +26,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     lint {
@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.fragment)
     implementation(libs.navigationFragment)
     implementation(libs.navigation.ui)
+    implementation(libs.volley)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

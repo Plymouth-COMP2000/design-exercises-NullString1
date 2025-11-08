@@ -93,6 +93,9 @@
         <action
             android:id="@+id/action_preferencesFragment_to_editMyProfileFragment"
             app:destination="@id/editMyProfileFragment" />
+        <action
+            android:id="@+id/action_preferencesFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/staffTodayResFragment"

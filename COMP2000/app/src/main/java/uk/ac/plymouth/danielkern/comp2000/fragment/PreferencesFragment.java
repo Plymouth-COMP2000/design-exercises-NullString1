@@ -1,5 +1,7 @@
 package uk.ac.plymouth.danielkern.comp2000.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,5 +29,11 @@ public class PreferencesFragment extends Fragment {
 
         Button editProfileB = view.findViewById(R.id.editProfB);
         editProfileB.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_preferencesFragment_to_editMyProfileFragment));
+
+        Button logoutB = view.findViewById(R.id.logoutB);
+        logoutB.setOnClickListener(v -> {
+            requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).edit().remove("logged_in_user").remove("user_type").apply();
+            Navigation.findNavController(view).navigate(R.id.action_preferencesFragment_to_loginFragment);
+        });
     }
 }
