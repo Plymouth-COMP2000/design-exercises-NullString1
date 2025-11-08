@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_staffAllResFragment_to_guestEditReservationFragment"
             app:destination="@id/guestEditReservationFragment" />
+        <action
+            android:id="@+id/action_staffAllResFragment_to_staffNewResFragment"
+            app:destination="@id/staffNewResFragment" />
     </fragment>
     <fragment
         android:id="@+id/staffNewResFragment"

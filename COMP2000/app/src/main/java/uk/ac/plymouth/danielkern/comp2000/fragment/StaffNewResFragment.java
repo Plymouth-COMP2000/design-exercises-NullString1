@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.time.LocalDate;
+
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationsDatabaseSingleton;
@@ -29,6 +31,13 @@ public class StaffNewResFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_staff_new_res, container, false);
 
+        final LocalDate localDate;
+        if (requireArguments().containsKey("date")) {
+            String date = requireArguments().getString("date");
+            localDate = LocalDate.parse(date);
+        } else {
+            localDate = LocalDate.now();
+        }
         Button createResB = view.findViewById(R.id.createResB);
         createResB.setOnClickListener(v -> {
             TextInputEditText guestFNameET = view.findViewById(R.id.guestFirstName);
@@ -46,7 +55,7 @@ public class StaffNewResFragment extends Fragment {
                     guestSName,
                     guestEmail,
                     guestPhone,
-                    timePicker.getTime(),
+                    localDate.atTime(timePicker.getTime().toLocalTime()),
                     guestsPicker.getGuests(),
                     guestsPicker.getChildren(),
                     guestsPicker.getHighChairs()

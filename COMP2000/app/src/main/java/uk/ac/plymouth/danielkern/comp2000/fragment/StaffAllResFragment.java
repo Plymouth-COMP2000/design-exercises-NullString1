@@ -3,12 +3,14 @@ package uk.ac.plymouth.danielkern.comp2000.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -68,6 +70,13 @@ public class StaffAllResFragment extends Fragment {
             currentYearTextView.setText(String.format("%s", selectedDate.getYear()));
             datePicker.setDate(selectedDate);
             updateReservations();
+        });
+
+        Button newReservationButton = view.findViewById(R.id.newResB3);
+        newReservationButton.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putString("date", selectedDate.toString());
+            Navigation.findNavController(view).navigate(R.id.action_staffAllResFragment_to_staffNewResFragment, args);
         });
 
         resDb = ReservationsDatabaseSingleton.getInstance(requireContext());
