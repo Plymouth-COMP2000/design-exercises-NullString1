@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +42,11 @@ public class StaffTodayResFragment extends Fragment {
 
         adapter = new StaffReservationsAdapter(resDb.db.getReservationsByDate(LocalDate.now()));
         staffTodayResRecyclerView.setAdapter(adapter);
+
+        Button newResB = view.findViewById(R.id.newResB2);
+        newResB.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigate(R.id.action_staffTodayResFragment_to_staffNewResFragment);
+        });
 
         return view;
     }

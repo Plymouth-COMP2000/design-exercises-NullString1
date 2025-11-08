@@ -6,6 +6,8 @@ public class ReservationItem {
     private int reservationId;
     private String customerFirstName;
     private String customerLastName;
+    private String customerEmail;
+    private String customerPhone;
     private LocalDateTime reservationTime;
     private int numberOfGuests;
     private int numberOfChildren;
@@ -40,6 +42,7 @@ public class ReservationItem {
 
     public ReservationItem(int reservationId, String customerFirstName, String customerLastName, LocalDateTime reservationTime, int numberOfGuests, int numberOfChildren, int numberOfHighChairs) {
         this.customerFirstName = customerFirstName;
+        this.customerLastName = customerLastName;
         this.reservationTime = reservationTime;
         this.numberOfGuests = numberOfGuests;
         this.numberOfChildren = numberOfChildren;
@@ -51,6 +54,17 @@ public class ReservationItem {
         this.reservationTime = reservationTime;
         this.numberOfGuests = numberOfGuests;
         this.customerFirstName = customerFirstName;
+    }
+
+    public ReservationItem(String customerFirstName, String customerLastName, String customerEmail, String customerPhone, LocalDateTime reservationTime, int numberOfGuests, int numberOfChildren, int numberOfHighChairs) {
+        this.customerFirstName = customerFirstName;
+        this.customerLastName = customerLastName;
+        this.customerEmail = customerEmail;
+        this.customerPhone = customerPhone;
+        this.reservationTime = reservationTime;
+        this.numberOfGuests = numberOfGuests;
+        this.numberOfChildren = numberOfChildren;
+        this.numberOfHighChairs = numberOfHighChairs;
     }
 
     public String getCustomerFirstName() {
@@ -77,7 +91,7 @@ public class ReservationItem {
         return numberOfHighChairs;
     }
 
-    public String gettCustomerLastName() {
+    public String getCustomerLastName() {
         return customerLastName;
     }
 

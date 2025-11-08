@@ -6,11 +6,13 @@
 
     <TextView
         android:id="@+id/reservationTime"
-        android:layout_width="54dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
+        android:text="06.00 am"
+        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,9 +33,9 @@
     <View
         android:layout_width="1dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/reservationTime"
-        app:layout_constraintEnd_toStartOf="@+id/reservationName"
         app:layout_constraintStart_toEndOf="@+id/reservationTime"
         app:layout_constraintTop_toTopOf="@+id/reservationTime">
 
@@ -43,10 +45,10 @@
         android:id="@+id/view"
         android:layout_width="1dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/reservationTime"
         app:layout_constraintEnd_toStartOf="@+id/reservationPeople"
-        app:layout_constraintStart_toEndOf="@+id/reservationName"
         app:layout_constraintTop_toTopOf="@+id/reservationTime"
         app:layout_constraintVertical_bias="0.0">
 

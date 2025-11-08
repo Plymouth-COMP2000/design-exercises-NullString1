@@ -35,7 +35,7 @@ public class TimePicker extends LinearLayout {
         hourPicker = findViewById(R.id.hourPicker);
         minutePicker = findViewById(R.id.minutePicker);
 
-        hourPicker.setMinValue(0);
+        hourPicker.setMinValue(7);
         hourPicker.setMaxValue(23);
 
         minutePicker.setMinValue(0);

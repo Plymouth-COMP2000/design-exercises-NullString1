@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.adapter.MenuAdapter;
+import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
-import uk.ac.plymouth.danielkern.comp2000.data.MenuSingleton;
 import uk.ac.plymouth.danielkern.comp2000.decoration.DividerItemDecoration;
 
 public class MenuPageFragment extends Fragment {
@@ -30,11 +30,12 @@ public class MenuPageFragment extends Fragment {
         return f;
     }
 
-    private final MenuSingleton menuSingleton = MenuSingleton.getInstance();
+    private MenuDatabaseSingleton menuSingleton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        menuSingleton = MenuDatabaseSingleton.getInstance(requireContext());
         return inflater.inflate(R.layout.fragment_menu_page, container, false);
     }
 
@@ -45,8 +46,8 @@ public class MenuPageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         String category = null;
         if (getArguments() != null) category = getArguments().getString(ARG_CATEGORY);
-        ArrayList<MenuItem> items = menuSingleton.getItemsByCategory(category);
-        MenuAdapter adapter = new MenuAdapter(items.toArray(new MenuItem[0]));
+        MenuItem[] items = menuSingleton.db.getItemsByCategory(category);
+        MenuAdapter adapter = new MenuAdapter(items);
         recyclerView.setAdapter(adapter);
         DividerItemDecoration decoration = new DividerItemDecoration(requireContext(), R.drawable.divider);
         recyclerView.addItemDecoration(decoration);

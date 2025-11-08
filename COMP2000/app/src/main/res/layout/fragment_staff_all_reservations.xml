@@ -10,9 +10,10 @@
         android:id="@+id/horizontalDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/previousMonth" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/staffResList"
@@ -22,4 +23,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalDatePicker" />
+
+    <TextView
+        android:id="@+id/currentMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/nextMonth"
+        app:layout_constraintStart_toEndOf="@+id/previousMonth"
+        app:layout_constraintTop_toBottomOf="@+id/currentYear" />
+
+    <TextView
+        android:id="@+id/previousMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/baseline_keyboard_double_arrow_left_24"
+        android:drawableTint="@color/text_primary"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentYear" />
+
+    <TextView
+        android:id="@+id/nextMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/baseline_keyboard_double_arrow_right_24"
+        android:drawableTint="@color/text_primary"
+        android:text="nextMonth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentYear" />
+
+    <TextView
+        android:id="@+id/currentYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="currentYear"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

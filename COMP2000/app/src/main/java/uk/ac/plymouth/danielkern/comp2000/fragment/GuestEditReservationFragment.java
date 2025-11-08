@@ -33,16 +33,21 @@ public class GuestEditReservationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         int reservationId = requireArguments().getInt("reservationId");
         ReservationItem reservationItem = resDb.db.getReservationById(reservationId);
+        TimePicker timePicker = view.findViewById(R.id.timePicker);
         Button saveButton = view.findViewById(R.id.submitB);
         saveButton.setOnClickListener(v -> {
             reservationItem.setNumberOfGuests(guestsPicker.getGuests());
             reservationItem.setNumberOfChildren(guestsPicker.getChildren());
             reservationItem.setNumberOfHighChairs(guestsPicker.getHighChairs());
-            reservationItem.setReservationTime(reservationItem.getReservationTime());
+            reservationItem.setReservationTime(timePicker.getTime());
             resDb.db.updateReservation(reservationItem);
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
-        TimePicker timePicker = view.findViewById(R.id.timePicker);
+        Button deleteButton = view.findViewById(R.id.delB);
+        deleteButton.setOnClickListener(v -> {
+            resDb.db.deleteReservation(reservationItem.getReservationId());
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
         timePicker.setTime(reservationItem.getReservationTime());
         guestsPicker = view.findViewById(R.id.guestsPicker);
         guestsPicker.setGuests(reservationItem.getNumberOfGuests());

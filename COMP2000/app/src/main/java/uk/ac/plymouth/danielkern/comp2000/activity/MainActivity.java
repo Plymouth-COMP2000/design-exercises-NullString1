@@ -23,6 +23,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
+import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;
+import uk.ac.plymouth.danielkern.comp2000.data.ReservationsDatabaseSingleton;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ReservationsDatabaseSingleton.getInstance(this).openDB();
+        MenuDatabaseSingleton.getInstance(this).openDB();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             throw new IllegalStateException("NavHostFragment not found");
         }
         navController = navHostFragment.getNavController();
+
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int destId = destination.getId();
@@ -146,10 +151,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navController.navigate(R.id.guestNewReservationFragment);
         } else if (id == R.id.nav_preferences) {
             navController.navigate(R.id.preferencesFragment);
+        } else if (id == R.id.nav_all_reservations) {
+            navController.navigate(R.id.staffAllResFragment);
+        } else if (id == R.id.nav_todays_reservations) {
+            navController.navigate(R.id.staffTodayResFragment);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ReservationsDatabaseSingleton.getInstance(this).closeDB();
+        MenuDatabaseSingleton.getInstance(this).closeDB();
     }
 
     @Override

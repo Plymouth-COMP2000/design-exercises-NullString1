@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import uk.ac.plymouth.danielkern.comp2000.fragment.MenuPageFragment;
 
 public class MenuPagerAdapter extends FragmentStateAdapter {
-    private final ArrayList<String> categories;
+    private final String[] categories;
 
-    public MenuPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<String> categories) {
+    public MenuPagerAdapter(@NonNull FragmentActivity fragmentActivity, String[] categories) {
         super(fragmentActivity);
         this.categories = categories;
     }
@@ -20,12 +20,12 @@ public class MenuPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return MenuPageFragment.newInstance(categories.get(position));
+        return MenuPageFragment.newInstance(categories[position]);
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return categories.length;
     }
 }
 

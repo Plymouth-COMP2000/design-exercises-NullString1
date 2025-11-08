@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.time.LocalDate;
 
@@ -37,16 +38,46 @@ public class StaffAllResFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_staff_all_reservations, container, false);
-        resDb = ReservationsDatabaseSingleton.getInstance(requireContext());
+
         selectedDate = LocalDate.now();
+        HorizontalDatePicker datePicker = view.findViewById(R.id.horizontalDatePicker);
+        TextView currentMonthTextView = view.findViewById(R.id.currentMonth);
+        currentMonthTextView.setText(selectedDate.getMonth().toString());
+
+        TextView nextMonthTextView = view.findViewById(R.id.nextMonth);
+        TextView previousMonthTextView = view.findViewById(R.id.previousMonth);
+        TextView currentYearTextView = view.findViewById(R.id.currentYear);
+        currentYearTextView.setText(String.valueOf(selectedDate.getYear()));
+        nextMonthTextView.setText(selectedDate.plusMonths(1).getMonth().toString());
+        nextMonthTextView.setOnClickListener(v -> {
+            selectedDate = selectedDate.plusMonths(1);
+            currentMonthTextView.setText(selectedDate.getMonth().toString());
+            previousMonthTextView.setText(selectedDate.minusMonths(1).getMonth().toString());
+            nextMonthTextView.setText(selectedDate.plusMonths(1).getMonth().toString());
+            currentYearTextView.setText(String.format("%s", selectedDate.getYear()));
+            datePicker.setDate(selectedDate);
+            updateReservations();
+        });
+
+        previousMonthTextView.setText(selectedDate.minusMonths(1).getMonth().toString());
+        previousMonthTextView.setOnClickListener(v -> {
+            selectedDate = selectedDate.minusMonths(1);
+            currentMonthTextView.setText(selectedDate.getMonth().toString());
+            previousMonthTextView.setText(selectedDate.minusMonths(1).getMonth().toString());
+            nextMonthTextView.setText(selectedDate.plusMonths(1).getMonth().toString());
+            currentYearTextView.setText(String.format("%s", selectedDate.getYear()));
+            datePicker.setDate(selectedDate);
+            updateReservations();
+        });
+
+        resDb = ReservationsDatabaseSingleton.getInstance(requireContext());
 
         RecyclerView staffTodayResRecyclerView = view.findViewById(R.id.staffResList);
         staffTodayResRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         adapter = new StaffReservationsAdapter(resDb.db.getReservationsByDate(selectedDate));
         staffTodayResRecyclerView.setAdapter(adapter);
-
-        HorizontalDatePicker datePicker = view.findViewById(R.id.horizontalDatePicker);
+        datePicker.setDate(selectedDate);
         datePicker.setOnDateSelectedListener(day -> {
             selectedDate = LocalDate.of(selectedDate.getYear(), selectedDate.getMonth(), day);
             updateReservations();

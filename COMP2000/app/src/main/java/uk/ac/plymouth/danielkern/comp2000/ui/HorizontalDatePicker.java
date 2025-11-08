@@ -17,7 +17,10 @@ import uk.ac.plymouth.danielkern.comp2000.adapter.HorizontalDateAdapter;
 
 public class HorizontalDatePicker extends LinearLayout {
 
+    RecyclerView container;
+    LinearLayoutManager layoutManager;
     private HorizontalDateAdapter adapter;
+    Integer[] days;
 
     public HorizontalDatePicker(Context context) {
         super(context);
@@ -34,29 +37,41 @@ public class HorizontalDatePicker extends LinearLayout {
         init(context);
     }
 
+    public void setDate(LocalDate date) {
+        int numDays = date.lengthOfMonth();
+        days = new Integer[numDays];
+        for (int i = 0; i < numDays; i++) {
+            days[i] = i + 1;
+        }
+        if (adapter == null) {
+            adapter = new HorizontalDateAdapter(days);
+        }else {
+            adapter.notifyDataSetChanged();
+        }
+        container.setAdapter(adapter);
+        int currentItem = date.getDayOfMonth() - 1;
+
+        if (date.withDayOfMonth(1).equals(LocalDate.now().withDayOfMonth(1))) {
+            adapter.setTodayPosition(LocalDate.now().getDayOfMonth() - 1);
+        } else {
+            adapter.setTodayPosition(-1);
+        }
+
+        container.post(() -> {
+            layoutManager.scrollToPositionWithOffset(currentItem,
+                    container.getWidth() / 2 - container.getWidth() / (2 * Math.max(1, numDays)));
+            adapter.setSelectedPosition(currentItem);
+        });
+    }
+
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.horizontal_date_picker, this, true);
-        RecyclerView container = findViewById(R.id.dayList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        container = findViewById(R.id.dayList);
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         container.setLayoutManager(layoutManager);
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(container);
-
-        int numDays = LocalDate.now().lengthOfMonth();
-        Integer[] days = new Integer[numDays];
-        for (int i = 0; i < numDays; i++) {
-            days[i] = i + 1;
-        }
-        adapter = new HorizontalDateAdapter(days);
-        container.setAdapter(adapter);
-        int currentItem = LocalDate.now().getDayOfMonth() - 1;
-
-        container.post(() -> {
-            layoutManager.scrollToPositionWithOffset(currentItem,
-                container.getWidth() / 2 - container.getWidth() / (2 * Math.max(1, numDays)));
-            adapter.setSelectedPosition(currentItem);
-        });
     }
 
     public void setOnDateSelectedListener(HorizontalDateAdapter.OnDateSelectedListener listener) {

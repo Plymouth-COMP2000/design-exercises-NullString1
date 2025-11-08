@@ -13,6 +13,25 @@ public class ReservationsDatabaseSingleton {
     private static ReservationsDatabaseSingleton instance;
     public final ReservationsDatabaseHelper db;
 
+    private SQLiteDatabase writableDb, readableDb;
+
+    public void openDB() {
+        if (writableDb == null || !writableDb.isOpen()) {
+            writableDb = db.getWritableDatabase();
+        }
+        if (readableDb == null || !readableDb.isOpen()) {
+            readableDb = db.getReadableDatabase();
+        }
+    }
+
+    public void closeDB() {
+        if (writableDb != null && writableDb.isOpen()) {
+            writableDb.close();
+        }
+        if (readableDb != null && readableDb.isOpen()) {
+            readableDb.close();
+        }
+    }
     private ReservationsDatabaseSingleton(Context context) {
         db = new ReservationsDatabaseHelper(context);
     }
@@ -52,21 +71,20 @@ public class ReservationsDatabaseSingleton {
         }
 
         public void addReservation(ReservationItem reservation) {
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = ReservationsDatabaseSingleton.instance.writableDb;
             Object[] values = {
                     reservation.getCustomerFirstName(),
-                    reservation.gettCustomerLastName(),
+                    reservation.getCustomerLastName(),
                     reservation.getNumberOfGuests(),
                     reservation.getNumberOfChildren(),
                     reservation.getNumberOfHighChairs(),
                     reservation.getReservationTime().toString()
             };
             db.execSQL("INSERT INTO reservation (customer_first_name, customer_last_name, total_guests, num_children, num_highchairs, datetime) VALUES (?, ?, ?, ?, ?, ?)", values);
-            db.close();
         }
 
         public ReservationItem[] getReservationsByDate(LocalDate date) {
-            SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = ReservationsDatabaseSingleton.instance.readableDb;
             String query = "SELECT * FROM reservation WHERE datetime BETWEEN ? AND ?";
             String dayStart = date.atStartOfDay().withHour(0).withMinute(0).withSecond(0).withNano(0).toString();
             String dayEnd = date.atStartOfDay().withHour(23).withMinute(59).withSecond(59).withNano(999999).toString();
@@ -84,12 +102,11 @@ public class ReservationsDatabaseSingleton {
                 reservations[i++] = new ReservationItem(id, customerFirstName, customerLastName, reservationTime, totalGuests, numChildren, numHighChairs);
             }
             cursor.close();
-            db.close();
             return reservations;
         }
 
         public ReservationItem[] getReservations() {
-            SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = ReservationsDatabaseSingleton.instance.readableDb;
             String query = "SELECT id, customer_first_name, customer_last_name, total_guests, num_children, num_highchairs, datetime FROM reservation";
             Cursor cursor = db.rawQuery(query, null);
             ReservationItem[] reservations = new ReservationItem[cursor.getCount()];
@@ -105,16 +122,15 @@ public class ReservationsDatabaseSingleton {
                 reservations[i++] = new ReservationItem(id, customerFirstName, customerLastName, reservationTime, totalGuests, numChildren, numHighChairs);
             }
             cursor.close();
-            db.close();
             return reservations;
         }
 
         public void updateReservation(ReservationItem reservation) {
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = ReservationsDatabaseSingleton.instance.writableDb;
             String query = "UPDATE reservation SET customer_first_name = ?, customer_last_name = ?, total_guests = ?, num_children = ?, num_highchairs = ?, datetime = ? WHERE id = ?";
             Object[] values = {
                     reservation.getCustomerFirstName(),
-                    reservation.gettCustomerLastName(),
+                    reservation.getCustomerLastName(),
                     reservation.getNumberOfGuests(),
                     reservation.getNumberOfChildren(),
                     reservation.getNumberOfHighChairs(),
@@ -122,11 +138,16 @@ public class ReservationsDatabaseSingleton {
                     reservation.getReservationId()
             };
             db.execSQL(query, values);
-            db.close();
+        }
+
+        public void deleteReservation(int id) {
+            SQLiteDatabase db = ReservationsDatabaseSingleton.instance.writableDb;
+            String query = "DELETE FROM reservation WHERE id = ?";
+            db.execSQL(query, new Object[]{id});
         }
 
         public ReservationItem getReservationById(int id) {
-            SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = ReservationsDatabaseSingleton.instance.readableDb;
             String query = "SELECT * FROM reservation WHERE id = ?";
             Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
             if (cursor.moveToFirst()) {
@@ -137,11 +158,9 @@ public class ReservationsDatabaseSingleton {
                 int numHighChairs = cursor.getInt(5);
                 LocalDateTime reservationTime = LocalDateTime.parse(cursor.getString(6));
                 cursor.close();
-                db.close();
                 return new ReservationItem(id, customerFirstName, customerLastName, reservationTime, totalGuests, numChildren, numHighChairs);
             }
             cursor.close();
-            db.close();
             return null;
         }
     }
