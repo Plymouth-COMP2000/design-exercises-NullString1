@@ -1,15 +1,19 @@
 package uk.ac.plymouth.danielkern.comp2000.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -61,6 +65,16 @@ public class MenuFragment extends Fragment {
         testMenu();
         TabLayout menuTabber = view.findViewById(R.id.menuTabber);
         ViewPager2 viewPager = view.findViewById(R.id.menuViewPager);
+
+        Button newItemB = view.findViewById(R.id.newItemB);
+        if (requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).getString("user_type", "GUEST").equals("MANAGER")) {
+            newItemB.setVisibility(View.VISIBLE);
+        } else {
+            newItemB.setVisibility(View.GONE);
+        }
+        newItemB.setOnClickListener(l -> {
+            Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_addMenuItemFragment);
+        });
 
         String[] categories = menuSingleton.db.getCategories();
 

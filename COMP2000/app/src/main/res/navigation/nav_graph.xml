@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_menuFragment_to_staffManagement"
             app:destination="@id/staffManagementFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_addMenuItemFragment"
+            app:destination="@id/addMenuItemFragment" />
     </fragment>
 
     <fragment
@@ -152,5 +155,10 @@
         android:id="@+id/createStaffFragment"
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.CreateStaffFragment"
         android:label="Create Staff Member" />
+    <fragment
+        android:id="@+id/addMenuItemFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.AddMenuItemFragment"
+        android:label="Add Menu Item"
+        tools:layout="@layout/fragment_add_menu_item" />
 
 </navigation>

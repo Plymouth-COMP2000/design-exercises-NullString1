@@ -48,7 +48,7 @@
     <string name="delete_reservation_desc">Delete reservation</string>
 
     <string name="item_name">Item Name</string>
-    <string name="item_description">item description</string>
+    <string name="item_description">Item description</string>
     <string name="item_image_desc">Item image</string>
 
     <!-- Time Picker strings -->
