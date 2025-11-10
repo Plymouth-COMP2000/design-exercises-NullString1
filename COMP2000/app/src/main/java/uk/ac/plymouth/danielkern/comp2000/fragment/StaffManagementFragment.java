@@ -3,12 +3,14 @@ package uk.ac.plymouth.danielkern.comp2000.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -46,6 +48,11 @@ public class StaffManagementFragment extends Fragment {
             Account[] accounts = Arrays.stream(new Gson().fromJson(users.toString(), Account[].class)).filter(account -> !account.getUsertype().toString().equals("GUEST")).toArray(Account[]::new);
             staffAdapter.setStaffAccounts(accounts);
         }, volleyError -> Toast.makeText(requireContext(), "Error fetching staff", Toast.LENGTH_SHORT).show());
+
+        Button addStaffB = view.findViewById(R.id.addStaffB);
+        addStaffB.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_staffManagementFragment_to_createStaffFragment);
+        });
         return view;
     }
 }

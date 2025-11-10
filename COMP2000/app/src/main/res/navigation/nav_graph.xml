@@ -139,11 +139,18 @@
         <action
             android:id="@+id/action_staffManagementFragment_to_editStaffFragment"
             app:destination="@id/editStaffFragment" />
+        <action
+            android:id="@+id/action_staffManagementFragment_to_createStaffFragment"
+            app:destination="@id/createStaffFragment" />
     </fragment>
     <fragment
         android:id="@+id/editStaffFragment"
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.EditStaffFragment"
-        android:label="fragment_edit_staff"
+        android:label="Edit Staff Member"
         tools:layout="@layout/fragment_edit_staff" />
+    <fragment
+        android:id="@+id/createStaffFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.CreateStaffFragment"
+        android:label="Create Staff Member" />
 
 </navigation>

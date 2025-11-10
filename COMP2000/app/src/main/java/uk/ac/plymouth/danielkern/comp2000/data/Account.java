@@ -34,6 +34,10 @@ public class Account implements Parcelable {
         this.usertype = usertype;
     }
 
+    public Account() {
+    }
+
+
     public Account(String username, String password, String firstname, String lastname, String email, String contact) {
         this.username = username;
         this.password = password;

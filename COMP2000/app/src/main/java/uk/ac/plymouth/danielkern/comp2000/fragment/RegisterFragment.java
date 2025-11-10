@@ -62,7 +62,7 @@ public class RegisterFragment extends Fragment {
                 Toast.makeText(requireContext(), "An error has occurred", Toast.LENGTH_SHORT).show();
                 return;
             }
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://10.240.72.69/comp2000/coursework/create_user/10944460", user,
+            VolleySingleton.createUser(VolleySingleton.getInstance(requireContext()), user,
                     response -> {
                         if (response.optString("message").equals("User created successfully")) {
                             Toast.makeText(requireContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
@@ -80,8 +80,6 @@ public class RegisterFragment extends Fragment {
                         Log.e("LoginFragment", "onViewCreated: ", error);
                         Toast.makeText(requireContext(), "An error has occurred", Toast.LENGTH_SHORT).show();
                     });
-            RequestQueue queue = VolleySingleton.getInstance(requireContext()).getRequestQueue();
-            queue.add(request);
         });
     }
 }
