@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_menuFragment_to_addMenuItemFragment"
             app:destination="@id/addMenuItemFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_editMenuItemFragment"
+            app:destination="@id/editMenuItemFragment" />
     </fragment>
 
     <fragment
@@ -160,5 +163,9 @@
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.AddMenuItemFragment"
         android:label="Add Menu Item"
         tools:layout="@layout/fragment_add_menu_item" />
+    <fragment
+        android:id="@+id/editMenuItemFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.EditMenuItemFragment"
+        android:label="Edit Menu Item" />
 
 </navigation>

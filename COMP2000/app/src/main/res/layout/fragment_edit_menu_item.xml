@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="New Item - "
+            android:text="Editing Item - "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +107,7 @@
             android:layout_width="152dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Create Item"
+            android:text="@string/save_changes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout13" />
@@ -122,6 +122,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/itemImageV" />
+
+        <Button
+            android:id="@+id/deleteItemB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bin"
+            android:backgroundTint="@color/error"
+            app:layout_constraintBottom_toBottomOf="@+id/saveChangeB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/saveChangeB"
+            app:layout_constraintTop_toTopOf="@+id/saveChangeB" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

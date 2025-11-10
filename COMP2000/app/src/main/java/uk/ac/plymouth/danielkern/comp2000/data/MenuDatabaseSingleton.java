@@ -143,35 +143,67 @@ public class MenuDatabaseSingleton {
         }
 
         public void insertItem(MenuItem item) {
-            insertItem(item.name(), item.description(), item.price(), (BitmapDrawable) item.image(), item.categoryName());
+            insertItem(item.getName(), item.getDescription(), item.getPrice(), (BitmapDrawable) item.getImage(), item.getCategoryName());
+        }
+
+        public MenuItem getItem(String name) {
+            SQLiteDatabase db = MenuDatabaseSingleton.instance.readableDb;
+            String sql = "SELECT menu.id,menu.name,description,price,image,cat.name FROM menu INNER JOIN categories AS cat ON menu.category_id = cat.id WHERE menu.name = ?";
+            Cursor cursor = db.rawQuery(sql, new String[]{name});
+            if (cursor.moveToFirst()) {
+                int itemId = cursor.getInt(0);
+                String itemName = cursor.getString(1);
+                String description = cursor.getString(2);
+                float price = cursor.getFloat(3);
+                byte[] image = cursor.getBlob(4);
+                String categoryName = cursor.getString(5);
+                Drawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
+                return new MenuItem(itemName, description, price, drawable, categoryName);
+            }
+            cursor.close();
+            return null;
         }
 
         public void insertItems(MenuItem[] items) {
             for (MenuItem item : items) {
-                insertItem(item.name(), item.description(), item.price(), (BitmapDrawable) item.image(), item.categoryName());
+                insertItem(item.getName(), item.getDescription(), item.getPrice(), (BitmapDrawable) item.getImage(), item.getCategoryName());
             }
         }
 
-        public void deleteItem(String name) {
+        public void deleteItem(int id) {
             SQLiteDatabase db = MenuDatabaseSingleton.instance.writableDb;
-            String sql = "DELETE FROM menu WHERE name = ?";
-            db.execSQL(sql, new Object[]{name});
+            String sql = "SELECT category_id, COUNT(*) FROM menu INNER JOIN menu AS m2 ON menu.category_id = m2.category_id WHERE id = ? GROUP BY category_id";
+            Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
+            int categoryId = -1;
+            int itemCountInCategory = 0;
+            if (cursor.moveToFirst()) {
+                categoryId = cursor.getInt(0);
+                itemCountInCategory = cursor.getInt(1);
+            }
+            cursor.close();
+            sql = "DELETE FROM menu WHERE id = ?";
+            db.execSQL(sql, new Object[]{id});
+            if (itemCountInCategory <= 1 && categoryId != -1) {
+                String deleteCatSql = "DELETE FROM categories WHERE id = ?";
+                db.execSQL(deleteCatSql, new Object[]{categoryId});
+            }
         }
 
         public MenuItem[] getItems() {
             SQLiteDatabase db = MenuDatabaseSingleton.instance.readableDb;
-            String sql = "SELECT menu.name,description,price,image,cat.name FROM menu INNER JOIN categories AS cat ON menu.category_id = cat.id";
+            String sql = "SELECT menu.id,menu.name,description,price,image,cat.name FROM menu INNER JOIN categories AS cat ON menu.category_id = cat.id";
             Cursor cursor = db.rawQuery(sql, null);
             MenuItem[] items = new MenuItem[cursor.getCount()];
             if (cursor.moveToFirst()) {
                 do {
-                    String name = cursor.getString(0);
-                    String description = cursor.getString(1);
-                    float price = cursor.getFloat(2);
-                    byte[] image = cursor.getBlob(3);
-                    String categoryName = cursor.getString(4);
-                    Drawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
-                    MenuItem item = new MenuItem(name, description, price, drawable, categoryName);
+                    int id = cursor.getInt(0);
+                    String name = cursor.getString(1);
+                    String description = cursor.getString(2);
+                    float price = cursor.getFloat(3);
+                    byte[] image = cursor.getBlob(4);
+                    String categoryName = cursor.getString(5);
+                    BitmapDrawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
+                    MenuItem item = new MenuItem(id, name, description, price, drawable, categoryName);
                     items[cursor.getPosition()] = item;
                 } while (cursor.moveToNext());
             }
@@ -179,20 +211,49 @@ public class MenuDatabaseSingleton {
             return items;
         }
 
+        public MenuItem getItem(int id) {
+            SQLiteDatabase db = MenuDatabaseSingleton.instance.readableDb;
+            String sql = "SELECT menu.id,menu.name,description,price,image,cat.name FROM menu INNER JOIN categories AS cat ON menu.category_id = cat.id WHERE menu.id = ?";
+            Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
+            if (cursor.moveToFirst()) {
+                int itemId = cursor.getInt(0);
+                String itemName = cursor.getString(1);
+                String description = cursor.getString(2);
+                float price = cursor.getFloat(3);
+                byte[] image = cursor.getBlob(4);
+                String categoryName = cursor.getString(5);
+                BitmapDrawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
+                return new MenuItem(itemId, itemName, description, price, drawable, categoryName);
+            }
+            cursor.close();
+            return null;
+        }
+
+        public void updateItem(MenuItem item) {
+            SQLiteDatabase db = MenuDatabaseSingleton.instance.writableDb;
+            String sql = "UPDATE menu SET name = ?, description = ?, price = ?, image = ? WHERE id = ?";
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            ((BitmapDrawable) item.getImage()).getBitmap().compress(Bitmap.CompressFormat.WEBP_LOSSY, 100, stream);
+            byte[] imageBytes = stream.toByteArray();
+            db.execSQL(sql, new Object[]{item.getName(), item.getDescription(), item.getPrice(), imageBytes, item.getId()});
+        }
+
+
         public MenuItem[] getItemsByCategory(String categoryName) {
             SQLiteDatabase db = MenuDatabaseSingleton.instance.readableDb;
-            String sql = "SELECT menu.name,description,price,image,cat.name FROM menu INNER JOIN categories AS cat ON menu.category_id = cat.id WHERE cat.name = ?";
+            String sql = "SELECT menu.id,menu.name,description,price,image,cat.name FROM menu INNER JOIN categories AS cat ON menu.category_id = cat.id WHERE cat.name = ?";
             Cursor cursor = db.rawQuery(sql, new String[]{categoryName});
             MenuItem[] items = new MenuItem[cursor.getCount()];
             if (cursor.moveToFirst()) {
                 do {
-                    String name = cursor.getString(0);
-                    String description = cursor.getString(1);
-                    float price = cursor.getFloat(2);
-                    byte[] image = cursor.getBlob(3);
-                    String catName = cursor.getString(4);
-                    Drawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
-                    MenuItem item = new MenuItem(name, description, price, drawable, catName);
+                    int id = cursor.getInt(0);
+                    String name = cursor.getString(1);
+                    String description = cursor.getString(2);
+                    float price = cursor.getFloat(3);
+                    byte[] image = cursor.getBlob(4);
+                    String catName = cursor.getString(5);
+                    BitmapDrawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
+                    MenuItem item = new MenuItem(id, name, description, price, drawable, catName);
                     items[cursor.getPosition()] = item;
                 } while (cursor.moveToNext());
             }

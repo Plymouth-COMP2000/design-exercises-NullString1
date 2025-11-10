@@ -1,6 +1,7 @@
 package uk.ac.plymouth.danielkern.comp2000.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,28 @@ public class MenuPageFragment extends Fragment {
     }
 
     private MenuDatabaseSingleton menuSingleton;
+    private MenuAdapter adapter;
+    private String categoryName;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        menuSingleton = MenuDatabaseSingleton.getInstance(requireContext());
         return inflater.inflate(R.layout.fragment_menu_page, container, false);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        menuSingleton = MenuDatabaseSingleton.getInstance(requireContext());
+        Log.d("MenuPageFragment", "onCreate: Setting up fragment result listener for itemChanged");
+        String resultKey = "itemChanged_"+getArguments().getString(ARG_CATEGORY);
+        requireActivity().getSupportFragmentManager().setFragmentResultListener(resultKey, this, (requestKey, result) -> {
+            Log.d("MenuPageFragment", "onCreate: itemChanged received for itemId " + result.getInt("changedItemId"));
+            MenuItem item = menuSingleton.db.getItem(result.getInt("changedItemId"));
+            if (item == null || !adapter.updateItem(item)){
+                adapter.setMenuItems(menuSingleton.db.getItemsByCategory(categoryName));
+            }
+        });
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -42,10 +59,9 @@ public class MenuPageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.menuPageRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        String category = null;
-        if (getArguments() != null) category = getArguments().getString(ARG_CATEGORY);
-        MenuItem[] items = menuSingleton.db.getItemsByCategory(category);
-        MenuAdapter adapter = new MenuAdapter(items);
+        if (getArguments() != null) categoryName = getArguments().getString(ARG_CATEGORY);
+        MenuItem[] items = menuSingleton.db.getItemsByCategory(categoryName);
+        adapter = new MenuAdapter(items);
         recyclerView.setAdapter(adapter);
         DividerItemDecoration decoration = new DividerItemDecoration(requireContext(), R.drawable.divider);
         recyclerView.addItemDecoration(decoration);

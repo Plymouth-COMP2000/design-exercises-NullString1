@@ -36,33 +36,9 @@ public class MenuFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_menu, container, false);
     }
 
-    public void testMenu() {
-        if (menuSingleton.db.countItems() > 0){
-            return;
-        }
-        menuSingleton.db.insertCategory("Starters");
-        menuSingleton.db.insertCategory("Mains");
-        menuSingleton.db.insertCategory("Desserts");
-        MenuItem[] starters = new MenuItem[]{
-                new MenuItem("Bruschetta", "Grilled bread topped with diced tomatoes, garlic, basil, and olive oil.", 5.00F, ResourcesCompat.getDrawable(getResources(), R.drawable.bruschetta, null), "Starters"),
-                new MenuItem("Stuffed Mushrooms", "Mushroom caps filled with a savory mixture of cheese, herbs, and breadcrumbs.", 6.50F, ResourcesCompat.getDrawable(getResources(), R.drawable.stuffed_mushrooms, null), "Starters")};
-        MenuItem[] mains = new MenuItem[]{
-                new MenuItem("Margherita Pizza", "Classic pizza with tomato sauce, mozzarella, and fresh basil.", 10.50F, ResourcesCompat.getDrawable(getResources(), R.drawable.margherita, null), "Mains"),
-                new MenuItem("Spaghetti Bolognese", "Traditional Italian pasta with rich meat sauce.", 12.75F, ResourcesCompat.getDrawable(getResources(), R.drawable.spaghetti_bolognese, null), "Mains")
-        };
-        MenuItem[] desserts = new MenuItem[]{
-                new MenuItem("Tiramisu", "Layered Italian dessert with coffee-soaked ladyfingers, mascarpone cheese, and cocoa powder.", 6.00F, ResourcesCompat.getDrawable(getResources(), R.drawable.tiramisu, null), "Desserts"),
-                new MenuItem("Panna Cotta", "Creamy Italian dessert topped with fresh berries or fruit sauce.", 5.50F, ResourcesCompat.getDrawable(getResources(), R.drawable.panna_cotta, null), "Desserts")
-        };
-        menuSingleton.db.insertItems(starters);
-        menuSingleton.db.insertItems(mains);
-        menuSingleton.db.insertItems(desserts);
-    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        testMenu();
         TabLayout menuTabber = view.findViewById(R.id.menuTabber);
         ViewPager2 viewPager = view.findViewById(R.id.menuViewPager);
 
