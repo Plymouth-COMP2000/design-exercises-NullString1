@@ -71,32 +71,27 @@ public class LoginFragment extends Fragment {
             if (username.isBlank() || password.isBlank()) {
                 return;
             }
-
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, String.format(Locale.getDefault(), "http://10.240.72.69/comp2000/coursework/read_user/10944460/%s", username), null,
-                    response -> {
-                        try {
-                            JSONObject user = response.getJSONObject("user");
-                            if (user.optString("password").equals(password)) {
-                                sharedPreferences.edit().putString("logged_in_user", username).putString("user_type", user.getString("usertype")).apply();
-                                ((MainActivity) requireActivity()).updateNavBarPerUserType();
-                                Navigation.findNavController(view).navigate(R.id.action_login_to_menu);
-                            } else {
-                                Toast.makeText(requireContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    },
-                    error -> {
-                        if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
-                            Toast.makeText(requireContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Log.e("LoginFragment", "onViewCreated: ", error);
-                        Toast.makeText(requireContext(), "An error has occurred", Toast.LENGTH_SHORT).show();
-                    });
-            RequestQueue queue = VolleySingleton.getInstance(requireContext()).getRequestQueue();
-            queue.add(request);
+            VolleySingleton.getUser(VolleySingleton.getInstance(requireContext()), username, response -> {
+                try {
+                    JSONObject user = response.getJSONObject("user");
+                    if (user.optString("password").equals(password)) {
+                        sharedPreferences.edit().putString("logged_in_user", username).putString("user_type", user.getString("usertype")).apply();
+                        ((MainActivity) requireActivity()).updateNavBarPerUserType();
+                        Navigation.findNavController(view).navigate(R.id.action_login_to_menu);
+                    } else {
+                        Toast.makeText(requireContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            },error -> {
+                if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
+                    Toast.makeText(requireContext(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.e("LoginFragment", "onViewCreated: ", error);
+                Toast.makeText(requireContext(), "An error has occurred", Toast.LENGTH_SHORT).show();
+            });
         });
 
         Button registerButton = view.findViewById(R.id.registerB);
