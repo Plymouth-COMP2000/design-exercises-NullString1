@@ -44,9 +44,7 @@ public class StaffTodayResFragment extends Fragment {
         staffTodayResRecyclerView.setAdapter(adapter);
 
         Button newResB = view.findViewById(R.id.newResB2);
-        newResB.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_staffTodayResFragment_to_staffNewResFragment);
-        });
+        newResB.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_staffTodayResFragment_to_staffNewResFragment));
 
         return view;
     }

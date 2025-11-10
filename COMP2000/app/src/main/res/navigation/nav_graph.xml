@@ -135,6 +135,15 @@
         android:id="@+id/staffManagementFragment"
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffManagementFragment"
         android:label="Staff Mangement"
-        tools:layout="@layout/fragment_staff_management" />
+        tools:layout="@layout/fragment_staff_management" >
+        <action
+            android:id="@+id/action_staffManagementFragment_to_editStaffFragment"
+            app:destination="@id/editStaffFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editStaffFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.EditStaffFragment"
+        android:label="fragment_edit_staff"
+        tools:layout="@layout/fragment_edit_staff" />
 
 </navigation>

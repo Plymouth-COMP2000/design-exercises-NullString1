@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.adapter.MenuAdapter;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,9 +51,12 @@ public class StaffReservationsAdapter extends RecyclerView.Adapter<StaffReservat
         holder.layout.setOnClickListener(v -> {
             Bundle args = new Bundle();
             args.putInt("reservationId", item.getReservationId());
-            if (Navigation.findNavController(v).getCurrentDestination().getId() == R.id.staffAllResFragment) {
+            NavDestination navDestination = Navigation.findNavController(v).getCurrentDestination();
+            if (navDestination == null)
+                return;
+            if (navDestination.getId() == R.id.staffAllResFragment) {
                 Navigation.findNavController(v).navigate(R.id.action_staffAllResFragment_to_guestEditReservationFragment, args);
-            } else if (Navigation.findNavController(v).getCurrentDestination().getId() == R.id.staffTodayResFragment) {
+            } else if (navDestination.getId() == R.id.staffTodayResFragment) {
                 Navigation.findNavController(v).navigate(R.id.action_staffTodayResFragment_to_guestEditReservationFragment, args);
             }
         });

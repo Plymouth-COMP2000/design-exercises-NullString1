@@ -83,4 +83,12 @@
     <string name="guest_email_address">Guest Email Address</string>
     <string name="guest_last_name">Guest Last Name</string>
     <string name="guest_first_name">Guest First Name</string>
+    <string name="staff_management">Staff Management</string>
+    <string name="username">Username</string>
+    <string name="password_leave_blank_to_keep_unchanged">Password (leave blank to keep unchanged)</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="manager">Manager?</string>
+    <string name="delete_staff_member">Delete Staff Member</string>
+    <string name="time_example">06.00 am</string>
 </resources>

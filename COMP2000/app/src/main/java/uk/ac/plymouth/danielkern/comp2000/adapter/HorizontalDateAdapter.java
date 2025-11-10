@@ -1,7 +1,5 @@
 package uk.ac.plymouth.danielkern.comp2000.adapter;
 
-import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +26,7 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<HorizontalDateAd
         void onDateSelected(int day);
     }
 
-    Integer[] days;
+    final Integer[] days;
     private int selectedPosition = -1;
     private int todayPosition = -1;
     private OnDateSelectedListener listener;

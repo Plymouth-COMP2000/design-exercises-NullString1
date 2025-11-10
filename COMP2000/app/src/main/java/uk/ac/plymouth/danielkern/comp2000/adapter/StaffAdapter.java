@@ -12,12 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.data.Account;
-import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
 
 public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder> {
 
@@ -46,9 +42,9 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder> 
         holder.staffType.setText(account.getUsertype().toString());
 
         holder.layout.setOnClickListener(v -> {
-//            Bundle args = new Bundle();
-//            args.putInt("reservationId", item.getReservationId());
-//            Navigation.findNavController(v).navigate(R.id.action_reservations_to_edit, args);
+            Bundle args = new Bundle();
+            args.putParcelable("account", account);
+            Navigation.findNavController(v).navigate(R.id.action_staffManagementFragment_to_editStaffFragment, args);
         });
     }
 

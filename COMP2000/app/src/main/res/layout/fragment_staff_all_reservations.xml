@@ -37,9 +37,8 @@
         android:id="@+id/previousMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/baseline_keyboard_double_arrow_left_24"
-        android:drawableTint="@color/text_primary"
-        android:text="TextView"
+        android:text=""
+        app:drawableTint="@color/text_primary" app:drawableStartCompat="@drawable/baseline_keyboard_double_arrow_left_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentYear" />
 
@@ -47,9 +46,8 @@
         android:id="@+id/nextMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/baseline_keyboard_double_arrow_right_24"
-        android:drawableTint="@color/text_primary"
-        android:text="nextMonth"
+        android:text=""
+        app:drawableTint="@color/text_primary" app:drawableEndCompat="@drawable/baseline_keyboard_double_arrow_right_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentYear" />
 
@@ -58,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="currentYear"
+        android:text=""
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

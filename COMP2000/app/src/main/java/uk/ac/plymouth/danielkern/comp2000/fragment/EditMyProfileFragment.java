@@ -3,7 +3,6 @@ package uk.ac.plymouth.danielkern.comp2000.fragment;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +41,7 @@ public class EditMyProfileFragment extends Fragment {
                     Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show();
                     requireActivity().getOnBackPressedDispatcher().onBackPressed();
                 }
-            }, error -> {
-                Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            });
+            }, error -> Toast.makeText(requireContext(), error.getMessage(), Toast.LENGTH_SHORT).show());
         });
 
         return view;

@@ -52,9 +52,7 @@ public class PreferencesFragment extends Fragment {
             nameView.setText(String.format("%s %s", firstName, lastName));
             emailView.setText(email);
             phoneView.setText(phone);
-        }, error -> {
-            Toast.makeText(requireContext(), "Network request failed", Toast.LENGTH_SHORT).show();
-        });
+        }, error -> Toast.makeText(requireContext(), "Network request failed", Toast.LENGTH_SHORT).show());
 
         Button logoutB = view.findViewById(R.id.logoutB);
         logoutB.setOnClickListener(v -> {

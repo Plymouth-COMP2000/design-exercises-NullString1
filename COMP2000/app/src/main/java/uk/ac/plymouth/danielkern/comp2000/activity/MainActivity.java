@@ -143,13 +143,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navMenu.findItem(R.id.nav_todays_reservations).setVisible(true);
                 navMenu.findItem(R.id.nav_staff_management).setVisible(true);
             }
-            default -> {
-                appBarConfiguration = new AppBarConfiguration.Builder(
-                        R.id.menuFragment, R.id.guestReservationsFragment, R.id.guestNewReservationFragment,
-                        R.id.editMyProfileFragment, R.id.preferencesFragment)
-                        .setOpenableLayout(drawerLayout)
-                        .build();
-            }
+            default -> appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.menuFragment, R.id.guestReservationsFragment, R.id.guestNewReservationFragment,
+                    R.id.editMyProfileFragment, R.id.preferencesFragment)
+                    .setOpenableLayout(drawerLayout)
+                    .build();
         }
     }
 

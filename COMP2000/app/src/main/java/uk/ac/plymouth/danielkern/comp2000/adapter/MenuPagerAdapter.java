@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.ArrayList;
-
 import uk.ac.plymouth.danielkern.comp2000.fragment.MenuPageFragment;
 
 public class MenuPagerAdapter extends FragmentStateAdapter {

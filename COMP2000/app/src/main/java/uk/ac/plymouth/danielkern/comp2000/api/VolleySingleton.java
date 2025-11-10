@@ -67,4 +67,9 @@ public class VolleySingleton {
             }
         }, errorListener);
     }
+
+    public static void updateUser(VolleySingleton volleySingleton, String username, JSONObject user, Response.Listener<org.json.JSONObject> callback, Response.ErrorListener errorListener) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, String.format(Locale.getDefault(), "http://10.240.72.69/comp2000/coursework/update_user/10944460/%s", username), user, callback, errorListener);
+        volleySingleton.getRequestQueue().add(request);
+    }
 }
