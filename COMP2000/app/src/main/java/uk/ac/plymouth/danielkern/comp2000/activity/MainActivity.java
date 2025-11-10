@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navMenu.findItem(R.id.nav_new_reservation).setVisible(true);
                 navMenu.findItem(R.id.nav_all_reservations).setVisible(false);
                 navMenu.findItem(R.id.nav_todays_reservations).setVisible(false);
+                navMenu.findItem(R.id.nav_staff_management).setVisible(false);
             }
             case "STAFF" -> {
                 appBarConfiguration = new AppBarConfiguration.Builder(
@@ -128,6 +129,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navMenu.findItem(R.id.nav_new_reservation).setVisible(false);
                 navMenu.findItem(R.id.nav_all_reservations).setVisible(true);
                 navMenu.findItem(R.id.nav_todays_reservations).setVisible(true);
+                navMenu.findItem(R.id.nav_staff_management).setVisible(false);
+            }
+            case "MANAGER" -> {
+                appBarConfiguration = new AppBarConfiguration.Builder(
+                        R.id.menuFragment, R.id.staffAllResFragment, R.id.staffTodayResFragment,
+                        R.id.editMyProfileFragment, R.id.preferencesFragment, R.id.staffManagementFragment)
+                        .setOpenableLayout(drawerLayout)
+                        .build();
+                navMenu.findItem(R.id.nav_my_reservations).setVisible(false);
+                navMenu.findItem(R.id.nav_new_reservation).setVisible(false);
+                navMenu.findItem(R.id.nav_all_reservations).setVisible(true);
+                navMenu.findItem(R.id.nav_todays_reservations).setVisible(true);
+                navMenu.findItem(R.id.nav_staff_management).setVisible(true);
             }
             default -> {
                 appBarConfiguration = new AppBarConfiguration.Builder(
@@ -155,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navController.navigate(R.id.staffAllResFragment);
         } else if (id == R.id.nav_todays_reservations) {
             navController.navigate(R.id.staffTodayResFragment);
+        } else if (id == R.id.nav_staff_management) {
+            navController.navigate(R.id.staffManagementFragment);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

@@ -42,6 +42,11 @@ public class VolleySingleton {
         volleySingleton.getRequestQueue().add(request);
     }
 
+    public static void getAllUsers(VolleySingleton volleySingleton, Response.Listener<org.json.JSONObject> callback, Response.ErrorListener errorCallback) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, "http://10.240.72.69/comp2000/coursework/read_all_users/10944460", null, callback, errorCallback);
+        volleySingleton.getRequestQueue().add(request);
+    }
+
     public static void setUserPassword(VolleySingleton volleySingleton, String username, String oldPassword, String newPassword, Response.Listener<org.json.JSONObject> callback, Response.ErrorListener errorListener) {
         getUser(volleySingleton, username, response -> {
             JSONObject user = response.optJSONObject("user");

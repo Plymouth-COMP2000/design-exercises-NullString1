@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_menuFragment_to_staffNewResFragment"
             app:destination="@id/staffNewResFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffManagement"
+            app:destination="@id/staffManagementFragment" />
     </fragment>
 
     <fragment
@@ -128,5 +131,10 @@
         android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffNewResFragment"
         android:label="@string/new_reservation"
         tools:layout="@layout/fragment_staff_new_res" />
+    <fragment
+        android:id="@+id/staffManagementFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffManagementFragment"
+        android:label="Staff Mangement"
+        tools:layout="@layout/fragment_staff_management" />
 
 </navigation>
