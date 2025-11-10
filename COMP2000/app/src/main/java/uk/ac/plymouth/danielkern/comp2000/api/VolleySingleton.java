@@ -77,4 +77,9 @@ public class VolleySingleton {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://10.240.72.69/comp2000/coursework/create_user/10944460", user, callback, errorListener);
         volleySingleton.getRequestQueue().add(request);
     }
+
+    public static void deleteUser(VolleySingleton volleySingleton, String username, Response.Listener<org.json.JSONObject> callback, Response.ErrorListener errorListener) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, String.format(Locale.getDefault(), "http://10.240.72.69/comp2000/coursework/delete_user/10944460/%s", username), null, callback, errorListener);
+        volleySingleton.getRequestQueue().add(request);
+    }
 }
