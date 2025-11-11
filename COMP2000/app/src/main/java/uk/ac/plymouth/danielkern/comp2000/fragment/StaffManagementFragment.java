@@ -24,12 +24,25 @@ import uk.ac.plymouth.danielkern.comp2000.adapter.StaffAdapter;
 import uk.ac.plymouth.danielkern.comp2000.api.VolleySingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.Account;
 
-public class StaffManagementFragment extends Fragment {
+public class StaffManagementFragment extends Fragment implements StaffAdapter.onClickListener, ConfirmDialogFragment.ConfirmDeleteListener {
+
+    StaffAdapter staffAdapter;
+    @Override
+    public void onConfirmDelete(String username) {
+        staffAdapter.deleteAccount(username);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    @Override
+    public void onClick(Account account) {
+        ConfirmDialogFragment confirmDialogFragment = ConfirmDialogFragment.newInstance(account, this);
+        confirmDialogFragment.show(requireActivity().getSupportFragmentManager(), "confirmDeleteStaff");
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +51,7 @@ public class StaffManagementFragment extends Fragment {
         RecyclerView staffRecyclerView = view.findViewById(R.id.staffRecycler);
 
         staffRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        StaffAdapter staffAdapter = new StaffAdapter(new Account[]{});
+        staffAdapter = new StaffAdapter(new Account[]{}, this);
         staffRecyclerView.setAdapter(staffAdapter);
 
         VolleySingleton.getAllUsers(VolleySingleton.getInstance(requireContext()), jsonObject -> {

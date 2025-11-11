@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Editing Item - "
+            android:text="@string/editing_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TAP TO CHANGE"
+            android:text="@string/tap_to_change"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/itemImageV"
             app:layout_constraintEnd_toEndOf="@+id/itemImageV"
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTint="@color/text_primary"
-                android:hint="Item Price"
+                android:hint="@string/item_price"
                 android:inputType="number|numberDecimal"
                 android:singleLine="true"
                 tools:drawableStart="@drawable/baseline_currency_pound_24" />

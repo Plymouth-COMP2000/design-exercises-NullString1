@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
@@ -22,7 +21,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.adapter.MenuPagerAdapter;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;
-import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
 
 public class MenuFragment extends Fragment {
 

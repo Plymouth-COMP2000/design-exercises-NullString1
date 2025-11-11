@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,18 +12,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
 import java.util.Locale;
-import java.util.Optional;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
-import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private MenuItem[] menuItems;
-    private String category;
+    private final String category;
 
     public MenuAdapter(MenuItem[] menuItems){
         this.menuItems = menuItems;

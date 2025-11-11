@@ -32,7 +32,7 @@ import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;
 public class AddMenuItemFragment extends Fragment {
 
     ImageView itemImageView;
-    private ActivityResultLauncher<Intent> imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->{
+    private final ActivityResultLauncher<Intent> imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->{
        if (result.getResultCode() == Activity.RESULT_OK){
            Intent data = result.getData();
            if (data != null && data.getData() != null) {

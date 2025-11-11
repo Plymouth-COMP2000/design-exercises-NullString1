@@ -91,4 +91,14 @@
     <string name="manager">Manager?</string>
     <string name="delete_staff_member">Delete Staff Member</string>
     <string name="time_example">06.00 am</string>
+    <string name="are_you_sure_you_want_to_delete">Are you sure you want to delete?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="user">User:</string>
+    <string name="new_item">New Item -</string>
+    <string name="tap_to_change">TAP TO CHANGE</string>
+    <string name="create_item">Create Item</string>
+    <string name="editing_item">Editing Item -</string>
+    <string name="add_new_item">Add New Item</string>
+    <string name="add_new_staff_member">Add New Staff Member</string>
 </resources>

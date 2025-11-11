@@ -2,7 +2,6 @@ package uk.ac.plymouth.danielkern.comp2000.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -33,7 +32,7 @@ import uk.ac.plymouth.danielkern.comp2000.data.MenuItem;
 public class EditMenuItemFragment extends Fragment {
 
     ImageView itemImageView;
-    private ActivityResultLauncher<Intent> imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->{
+    private final ActivityResultLauncher<Intent> imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->{
         if (result.getResultCode() == Activity.RESULT_OK){
             Intent data = result.getData();
             if (data != null && data.getData() != null) {
