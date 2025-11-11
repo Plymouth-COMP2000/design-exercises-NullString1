@@ -89,6 +89,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return insets;
         });
 
+        toolbar.setNavigationOnClickListener(v -> {
+            Integer currentId = navController.getCurrentDestination() != null ? navController.getCurrentDestination().getId() : null;
+            if (currentId != null && appBarConfiguration.getTopLevelDestinations().contains(currentId)){
+                if (drawerLayout.isDrawerOpen(GravityCompat.START))  {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            } else {
+                onSupportNavigateUp();
+            }
+        });
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
