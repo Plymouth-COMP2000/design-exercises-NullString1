@@ -63,9 +63,7 @@ public class StaffManagementFragment extends Fragment implements StaffAdapter.on
         }, volleyError -> Toast.makeText(requireContext(), "Error fetching staff", Toast.LENGTH_SHORT).show());
 
         Button addStaffB = view.findViewById(R.id.addStaffB);
-        addStaffB.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_staffManagementFragment_to_createStaffFragment);
-        });
+        addStaffB.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_staffManagementFragment_to_createStaffFragment));
         return view;
     }
 }

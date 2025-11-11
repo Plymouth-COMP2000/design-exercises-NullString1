@@ -46,9 +46,7 @@ public class MenuFragment extends Fragment {
         } else {
             newItemB.setVisibility(View.GONE);
         }
-        newItemB.setOnClickListener(l -> {
-            Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_addMenuItemFragment);
-        });
+        newItemB.setOnClickListener(l -> Navigation.findNavController(view).navigate(R.id.action_menuFragment_to_addMenuItemFragment));
 
         String[] categories = menuSingleton.db.getCategories();
 

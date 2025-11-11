@@ -43,6 +43,11 @@ public class MenuPageFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         menuSingleton = MenuDatabaseSingleton.getInstance(requireContext());
         Log.d("MenuPageFragment", "onCreate: Setting up fragment result listener for itemChanged");
+        if (getArguments() == null) {
+            Log.e("MenuPageFragment", "onCreate: No arguments provided to MenuPageFragment");
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+            return;
+        }
         String resultKey = "itemChanged_"+getArguments().getString(ARG_CATEGORY);
         requireActivity().getSupportFragmentManager().setFragmentResultListener(resultKey, this, (requestKey, result) -> {
             Log.d("MenuPageFragment", "onCreate: itemChanged received for itemId " + result.getInt("changedItemId"));

@@ -20,6 +20,14 @@ public class ReservationItem {
         this.numberOfHighChairs = numberOfHighChairs;
     }
 
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
     public void setCustomerFirstName(String customerFirstName) {
         this.customerFirstName = customerFirstName;
     }

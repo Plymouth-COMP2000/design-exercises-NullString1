@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.stream.Stream;
-
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.api.VolleySingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.Account;
@@ -56,8 +54,9 @@ public class ConfirmDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_confirm_delete_staff_member, container, false);
-        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        if (account == null) {
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        if (account == null || getContext() == null) {
             dismiss();
             return view;
         }

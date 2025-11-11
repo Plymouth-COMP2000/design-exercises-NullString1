@@ -14,10 +14,6 @@ import uk.ac.plymouth.danielkern.comp2000.R;
 
 public class HorizontalDateAdapter extends RecyclerView.Adapter<HorizontalDateAdapter.ViewHolder> {
 
-    public int getTodayPosition() {
-        return todayPosition;
-    }
-
     public void setTodayPosition(int todayPosition) {
         this.todayPosition = todayPosition;
     }
@@ -74,7 +70,7 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<HorizontalDateAd
         } else {
             colour = defaultColour;
         }
-        holder.setHighlighted(position == selectedPosition || position == todayPosition, colour);
+        holder.setHighlighted(colour);
         holder.itemView.setOnClickListener(v -> {
             setSelectedPosition(position);
             if (listener != null) {
@@ -97,7 +93,7 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<HorizontalDateAd
             dayB = itemView.findViewById(R.id.dayB);
         }
 
-        public void setHighlighted(boolean highlighted, int colour) {
+        public void setHighlighted(int colour) {
             Drawable bg = dayB.getBackground();
             bg.setTint(colour);
             dayB.setBackground(bg);

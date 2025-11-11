@@ -1,14 +1,11 @@
 package uk.ac.plymouth.danielkern.comp2000.adapter;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.stream.Stream;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
-import uk.ac.plymouth.danielkern.comp2000.api.VolleySingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.Account;
-import uk.ac.plymouth.danielkern.comp2000.fragment.ConfirmDialogFragment;
 
 public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder> {
 
@@ -50,8 +45,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder> 
             }
         }
         if (index != -1) {
-            Account[] newAccounts = Stream.of(staffAccounts).filter(a -> !a.getUsername().equals(username)).toArray(Account[]::new);
-            staffAccounts = newAccounts;
+            staffAccounts = Stream.of(staffAccounts).filter(a -> !a.getUsername().equals(username)).toArray(Account[]::new);
             notifyItemRemoved(index);
         }
     }

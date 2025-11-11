@@ -33,10 +33,5 @@ public class HorizontalDatePickerItem extends LinearLayout {
         dayText = findViewById(R.id.dayTV);
     }
 
-    public void setDay(int day) {
-        dayText.setText(String.valueOf(day));
-    }
-
-
 
 }
