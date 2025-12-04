@@ -11,57 +11,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/notificationCard"
-        style="@style/Widget.App.CardView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/notificationCard"
+            style="@style/Widget.App.CardView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_card">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="600dp">
 
-            <TextView
-                android:id="@+id/textView8"
-                style="@style/TextAppearance.App.Title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:text="@string/notification_preferences" />
+                android:orientation="vertical"
+                android:padding="@dimen/padding_card">
 
-            <CheckBox
-                android:id="@+id/resChangeB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_sm"
-                android:buttonTint="@color/primary"
-                android:text="@string/reservation_changes"
-                android:textAppearance="@style/TextAppearance.App.Body" />
+                <TextView
+                    android:id="@+id/textView8"
+                    style="@style/TextAppearance.App.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:text="@string/notification_preferences" />
 
-            <CheckBox
-                android:id="@+id/resRemB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_sm"
-                android:buttonTint="@color/primary"
-                android:text="@string/reservation_reminders"
-                android:textAppearance="@style/TextAppearance.App.Body" />
+                <CheckBox
+                    android:id="@+id/resChangeB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_sm"
+                    android:buttonTint="@color/primary"
+                    android:text="@string/reservation_changes"
+                    android:textAppearance="@style/TextAppearance.App.Body" />
 
-            <CheckBox
-                android:id="@+id/menuChangeB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/primary"
-                android:text="@string/menu_changes"
-                android:textAppearance="@style/TextAppearance.App.Body" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <CheckBox
+                    android:id="@+id/resRemB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_sm"
+                    android:buttonTint="@color/primary"
+                    android:text="@string/reservation_reminders"
+                    android:textAppearance="@style/TextAppearance.App.Body" />
+
+                <CheckBox
+                    android:id="@+id/menuChangeB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary"
+                    android:text="@string/menu_changes"
+                    android:textAppearance="@style/TextAppearance.App.Body" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     <!-- Logout Button -->
         <com.google.android.material.card.MaterialCardView
@@ -72,9 +72,9 @@
             android:layout_marginTop="6dp"
             app:contentPadding="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notificationCard">
+            app:layout_constraintTop_toBottomOf="@+id/notificationCard"
+            app:layout_constraintWidth_max="600dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -155,14 +155,15 @@
             style="@style/Widget.App.Button.Primary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="@string/logout"
             app:icon="@drawable/baseline_logout_24"
             app:iconGravity="textStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutMeCard" />
+            app:layout_constraintTop_toBottomOf="@+id/aboutMeCard"
+            app:layout_constraintWidth_max="650dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

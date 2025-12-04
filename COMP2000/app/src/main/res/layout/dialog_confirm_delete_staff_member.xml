@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/rectange"
     android:backgroundTint="@color/surface_variant"
-    android:padding="@dimen/corner_radius_md">
+    android:padding="@dimen/corner_radius_md"
+    app:layout_constraintWidth_max="600dp">
 
     <TextView
         android:id="@+id/textView2"
