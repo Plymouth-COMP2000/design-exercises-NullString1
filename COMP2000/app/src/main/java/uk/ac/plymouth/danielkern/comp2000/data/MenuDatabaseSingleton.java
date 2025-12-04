@@ -8,14 +8,34 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuDatabaseSingleton {
 
     private static MenuDatabaseSingleton instance;
     public final MenuDatabaseHelper db;
+
+    private final List<DBObserver> observers = new ArrayList<>();
+
+    public void addObserver(DBObserver observer) {
+        if (!observers.contains(observer)) {
+            observers.add(observer);
+        }
+    }
+
+    public void removeObserver(DBObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(DBObserver.Operation operation) {
+        for (DBObserver observer : observers) {
+            observer.onDatabaseChanged("menu.db", operation);
+        }
+    }
 
     private SQLiteDatabase writableDb, readableDb;
 
@@ -90,6 +110,8 @@ public class MenuDatabaseSingleton {
             SQLiteDatabase db = MenuDatabaseSingleton.instance.writableDb;
             String sql = "INSERT INTO menu (name, description, price, image, category_id) VALUES (?, ?, ?, ?, ?)";
             db.execSQL(sql, new Object[]{name, description, price, image, categoryId});
+            MenuDatabaseSingleton.instance.notifyObservers(DBObserver.Operation.INSERT_MENU_ITEM);
+
         }
 
         public void insertItem(String name, String description, float price, BitmapDrawable image, String categoryName) {
@@ -157,8 +179,8 @@ public class MenuDatabaseSingleton {
                 float price = cursor.getFloat(3);
                 byte[] image = cursor.getBlob(4);
                 String categoryName = cursor.getString(5);
-                Drawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
-                return new MenuItem(itemName, description, price, drawable, categoryName);
+                BitmapDrawable drawable = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(image, 0, image.length));
+                return new MenuItem(itemId, itemName, description, price, drawable, categoryName);
             }
             cursor.close();
             return null;
@@ -187,6 +209,7 @@ public class MenuDatabaseSingleton {
                 String deleteCatSql = "DELETE FROM categories WHERE id = ?";
                 db.execSQL(deleteCatSql, new Object[]{categoryId});
             }
+            MenuDatabaseSingleton.instance.notifyObservers(DBObserver.Operation.DELETE_MENU_ITEM);
         }
 
         public MenuItem[] getItems() {
@@ -236,6 +259,7 @@ public class MenuDatabaseSingleton {
             ((BitmapDrawable) item.getImage()).getBitmap().compress(Bitmap.CompressFormat.WEBP_LOSSY, 100, stream);
             byte[] imageBytes = stream.toByteArray();
             db.execSQL(sql, new Object[]{item.getName(), item.getDescription(), item.getPrice(), imageBytes, item.getId()});
+            MenuDatabaseSingleton.instance.notifyObservers(DBObserver.Operation.UPDATE_MENU_ITEM);
         }
 
 

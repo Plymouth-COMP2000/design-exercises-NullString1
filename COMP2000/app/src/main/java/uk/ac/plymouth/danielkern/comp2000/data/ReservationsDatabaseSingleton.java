@@ -7,11 +7,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationsDatabaseSingleton {
 
     private static ReservationsDatabaseSingleton instance;
     public final ReservationsDatabaseHelper db;
+
+    private final List<DBObserver> observers = new ArrayList<>();
+
+    public void addObserver(DBObserver observer) {
+        if (!observers.contains(observer)) {
+            observers.add(observer);
+        }
+    }
+
+    public void removeObserver(DBObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(DBObserver.Operation operation) {
+        for (DBObserver observer : observers) {
+            observer.onDatabaseChanged("reservations.db", operation);
+        }
+    }
 
     private SQLiteDatabase writableDb, readableDb;
 
@@ -81,6 +101,7 @@ public class ReservationsDatabaseSingleton {
                     reservation.getReservationTime().toString()
             };
             db.execSQL("INSERT INTO reservation (customer_first_name, customer_last_name, total_guests, num_children, num_highchairs, datetime) VALUES (?, ?, ?, ?, ?, ?)", values);
+            ReservationsDatabaseSingleton.instance.notifyObservers(DBObserver.Operation.INSERT_RESERVATION);
         }
 
         public ReservationItem[] getReservationsByDate(LocalDate date) {
@@ -138,12 +159,14 @@ public class ReservationsDatabaseSingleton {
                     reservation.getReservationId()
             };
             db.execSQL(query, values);
+            ReservationsDatabaseSingleton.instance.notifyObservers(DBObserver.Operation.UPDATE_RESERVATION);
         }
 
         public void deleteReservation(int id) {
             SQLiteDatabase db = ReservationsDatabaseSingleton.instance.writableDb;
             String query = "DELETE FROM reservation WHERE id = ?";
             db.execSQL(query, new Object[]{id});
+            ReservationsDatabaseSingleton.instance.notifyObservers(DBObserver.Operation.DELETE_RESERVATION);
         }
 
         public ReservationItem getReservationById(int id) {

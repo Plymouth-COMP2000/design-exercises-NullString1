@@ -1,5 +1,8 @@
 package uk.ac.plymouth.danielkern.comp2000.activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -22,11 +26,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Objects;
+
 import uk.ac.plymouth.danielkern.comp2000.R;
+import uk.ac.plymouth.danielkern.comp2000.data.DBObserver;
 import uk.ac.plymouth.danielkern.comp2000.data.MenuDatabaseSingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationsDatabaseSingleton;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DBObserver {
+
+    private static final String CHANNEL_ID = "db_update_channel";
 
     private DrawerLayout drawerLayout;
     private NavController navController;
@@ -38,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ReservationsDatabaseSingleton.getInstance(this).addObserver(this);
+        MenuDatabaseSingleton.getInstance(this).addObserver(this);
         ReservationsDatabaseSingleton.getInstance(this).openDB();
         MenuDatabaseSingleton.getInstance(this).openDB();
         EdgeToEdge.enable(this);
@@ -115,7 +126,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
+
+        createNotificationChannel();
     }
+
 
     public void updateNavBarPerUserType() {
         Menu navMenu = navigationView.getMenu();
@@ -198,5 +212,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onDatabaseChanged(String dbName, Operation operation) {
+        runOnUiThread(() -> {
+            String message = switch (operation) {
+                case INSERT_MENU_ITEM -> "A new item has been added to the menu! Check it out!";
+                case UPDATE_MENU_ITEM -> "A menu item has been updated";
+                case DELETE_MENU_ITEM -> "A menu item has been removed :(";
+                case INSERT_RESERVATION -> "A new reservation has been made!";
+                case UPDATE_RESERVATION ->
+                        "Changes have been made to one or more of your reservations";
+                case DELETE_RESERVATION -> "A reservation has been cancelled :(";
+            };
+            showNotification(Objects.equals(dbName, "reservations.db") ? "Reservations" : "Menu", message);
+        });
+    }
+
+    private void createNotificationChannel() {
+        CharSequence name = "Reservations and Menu Updates";
+        String description = "Receive notifications about menu changes and updates to your reservations";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+
+    private void showNotification(String title, String message) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        int notificationId = (int) System.currentTimeMillis();
+        notificationManager.notify(notificationId, builder.build());
     }
 }
