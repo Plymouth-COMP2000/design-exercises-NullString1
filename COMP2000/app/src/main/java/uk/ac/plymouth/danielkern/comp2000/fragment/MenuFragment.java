@@ -2,6 +2,7 @@ package uk.ac.plymouth.danielkern.comp2000.fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
@@ -50,21 +52,22 @@ public class MenuFragment extends Fragment {
 
         String[] categories = menuSingleton.db.getCategories();
 
+        if (categories.length == 0 ){
+            BitmapDrawable drawable = (BitmapDrawable) AppCompatResources.getDrawable(requireContext(), R.drawable.bruschetta);
+            assert drawable != null;
+            menuSingleton.db.insertItem("Example Item", "Example Description", 10.00f, drawable, "Example Category");
+            categories = menuSingleton.db.getCategories();
+        }
+
+        String[] finalCategories = categories;
+
         MenuPagerAdapter pagerAdapter = new MenuPagerAdapter(requireActivity(), categories);
         viewPager.setAdapter(pagerAdapter);
 
-        if (categories.length > 0) viewPager.setCurrentItem(0, false);
+        viewPager.setCurrentItem(0, false);
 
         viewPager.setUserInputEnabled(true);
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                Log.d(TAG, "pageSelected=" + position + " -> " + (position < categories.length ? categories[position] : ""));
-            }
-        });
-
-        new TabLayoutMediator(menuTabber, viewPager, (tab, position) -> tab.setText(categories[position])).attach();
+        new TabLayoutMediator(menuTabber, viewPager, (tab, position) -> tab.setText(finalCategories[position])).attach();
     }
 }
