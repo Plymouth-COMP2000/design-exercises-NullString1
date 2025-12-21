@@ -194,7 +194,7 @@ public class MenuDatabaseSingleton {
 
         public void deleteItem(int id) {
             SQLiteDatabase db = MenuDatabaseSingleton.instance.writableDb;
-            String sql = "SELECT category_id, COUNT(*) FROM menu INNER JOIN menu AS m2 ON menu.category_id = m2.category_id WHERE id = ? GROUP BY category_id";
+            String sql = "SELECT menu.category_id, COUNT(*) FROM menu INNER JOIN menu AS m2 ON menu.category_id = m2.category_id WHERE menu.id = ? GROUP BY menu.category_id";
             Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
             int categoryId = -1;
             int itemCountInCategory = 0;
