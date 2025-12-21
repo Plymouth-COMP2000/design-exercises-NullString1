@@ -1,11 +1,15 @@
 package uk.ac.plymouth.danielkern.comp2000.activity;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -13,7 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -36,6 +42,7 @@ import uk.ac.plymouth.danielkern.comp2000.data.ReservationsDatabaseSingleton;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DBObserver {
 
     private static final String CHANNEL_ID = "db_update_channel";
+    private static final int POST_NOTIFICATIONS_REQUEST_CODE = 1001;
 
     private DrawerLayout drawerLayout;
     private NavController navController;
@@ -127,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        createNotificationChannel();
+        ensureNotificationPermissionAndChannel();
     }
 
 
@@ -237,10 +244,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
         channel.setDescription(description);
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
+        if (notificationManager != null) {
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void ensureNotificationPermissionAndChannel() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                    POST_NOTIFICATIONS_REQUEST_CODE);
+        }
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (nm != null && !nm.areNotificationsEnabled()) {
+            Toast.makeText(this, "Notifications are disabled for this app. Enable them in settings.", Toast.LENGTH_LONG).show();
+        } else {
+            createNotificationChannel();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == POST_NOTIFICATIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                createNotificationChannel();
+            } else {
+                Toast.makeText(this, "Notification permission denied. Notifications will not be shown.", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void showNotification(String title, String message) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (nm != null && !nm.areNotificationsEnabled()) return;
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(title)
@@ -248,8 +290,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         int notificationId = (int) System.currentTimeMillis();
-        notificationManager.notify(notificationId, builder.build());
+        if (nm != null) nm.notify(notificationId, builder.build());
     }
 }
