@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .setOpenableLayout(drawerLayout)
                     .build();
         }
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     }
 
     @Override

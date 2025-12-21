@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import uk.ac.plymouth.danielkern.comp2000.R;
+import uk.ac.plymouth.danielkern.comp2000.activity.MainActivity;
 import uk.ac.plymouth.danielkern.comp2000.api.VolleySingleton;
 import uk.ac.plymouth.danielkern.comp2000.data.Account;
 
@@ -64,6 +65,7 @@ public class RegisterFragment extends Fragment {
                         if (response.optString("message").equals("User created successfully")) {
                             Toast.makeText(requireContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
                             requireContext().getSharedPreferences("user_prefs", 0).edit().putString("logged_in_user", account.getUsername()).putString("user_type", Account.UserType.GUEST.toString()).apply();
+                            ((MainActivity) requireActivity()).updateNavBarPerUserType();
                             Navigation.findNavController(view).navigate(R.id.action_register_to_login);
                         } else {
                             Toast.makeText(requireContext(), "An error has occurred", Toast.LENGTH_SHORT).show();

@@ -20,6 +20,8 @@ import androidx.navigation.Navigation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.activity.MainActivity;
 import uk.ac.plymouth.danielkern.comp2000.api.VolleySingleton;
@@ -40,7 +42,7 @@ public class LoginFragment extends Fragment {
         if (sharedPreferences == null) {
             sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
         }
-        if (sharedPreferences.contains("logged_in_user")) {
+        if (sharedPreferences.contains("logged_in_user") && Objects.requireNonNull(Navigation.findNavController(requireView()).getCurrentDestination()).getId() == R.id.loginFragment) {
             Navigation.findNavController(requireView()).navigate(R.id.action_login_to_menu);
         }
     }
@@ -52,6 +54,7 @@ public class LoginFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
 
         if (sharedPreferences.contains("logged_in_user")) {
+            ((MainActivity) requireActivity()).updateNavBarPerUserType();
             Navigation.findNavController(view).navigate(R.id.action_login_to_menu);
             return;
         }
