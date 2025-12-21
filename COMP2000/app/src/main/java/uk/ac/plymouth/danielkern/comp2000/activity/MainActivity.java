@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void createNotificationChannel() {
         CharSequence name = "Reservations and Menu Updates";
         String description = "Receive notifications about menu changes and updates to your reservations";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
         channel.setDescription(description);
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
 
         int notificationId = (int) System.currentTimeMillis();
