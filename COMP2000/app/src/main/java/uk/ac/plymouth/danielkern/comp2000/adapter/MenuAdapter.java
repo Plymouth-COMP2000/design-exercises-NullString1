@@ -1,5 +1,7 @@
 package uk.ac.plymouth.danielkern.comp2000.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private MenuItem[] menuItems;
     private final String category;
+
+    private boolean isGuest;
 
     public MenuAdapter(MenuItem[] menuItems){
         this.menuItems = menuItems;
@@ -47,6 +51,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
+        isGuest = parent.getContext().getSharedPreferences("user_prefs", MODE_PRIVATE).getString("user_type", "").equals("GUEST");
         return new ViewHolder(view);
     }
 
@@ -58,10 +63,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.itemImage.setImageDrawable(item.getImage());
         holder.itemPrice.setText(String.format(Locale.getDefault(), "£%.2f", item.getPrice()));
         holder.layout.setOnClickListener(l -> {
-            Bundle args = new Bundle();
-            args.putInt("itemId", item.getId());
-            args.putString("category", category);
-            Navigation.findNavController(holder.itemView).navigate(R.id.action_menuFragment_to_editMenuItemFragment, args);
+            if (!isGuest) {
+                Bundle args = new Bundle();
+                args.putInt("itemId", item.getId());
+                args.putString("category", category);
+                Navigation.findNavController(holder.itemView).navigate(R.id.action_menuFragment_to_editMenuItemFragment, args);
+            }
         });
     }
 
