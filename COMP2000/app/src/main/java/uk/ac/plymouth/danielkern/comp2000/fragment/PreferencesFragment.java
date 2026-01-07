@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -59,5 +60,13 @@ public class PreferencesFragment extends Fragment {
             requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).edit().remove("logged_in_user").remove("user_type").apply();
             Navigation.findNavController(view).navigate(R.id.action_preferencesFragment_to_loginFragment);
         });
+
+        CheckBox resChangeB = view.findViewById(R.id.resChangeB);
+        CheckBox menuChangeB = view.findViewById(R.id.menuChangeB);
+        resChangeB.setChecked(requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).getBoolean("res_updates", true));
+        menuChangeB.setChecked(requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).getBoolean("menu_updates", true));
+
+        resChangeB.setOnCheckedChangeListener((buttonView, isChecked) -> requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).edit().putBoolean("res_updates", isChecked).apply());
+        menuChangeB.setOnCheckedChangeListener((buttonView, isChecked) -> requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE).edit().putBoolean("menu_updates", isChecked).apply());
     }
 }

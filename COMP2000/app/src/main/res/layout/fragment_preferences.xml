@@ -45,15 +45,6 @@
                     android:textAppearance="@style/TextAppearance.App.Body" />
 
                 <CheckBox
-                    android:id="@+id/resRemB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_sm"
-                    android:buttonTint="@color/primary"
-                    android:text="@string/reservation_reminders"
-                    android:textAppearance="@style/TextAppearance.App.Body" />
-
-                <CheckBox
                     android:id="@+id/menuChangeB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

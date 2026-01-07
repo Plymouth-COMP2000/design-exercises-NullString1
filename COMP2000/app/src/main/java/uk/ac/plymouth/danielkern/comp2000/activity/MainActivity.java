@@ -225,6 +225,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onDatabaseChanged(String dbName, Operation operation) {
         runOnUiThread(() -> {
+            if (dbName == null || operation == null) return;
+            if (dbName.equals("reservations.db")) {
+                if (!getSharedPreferences("user_prefs", MODE_PRIVATE).getBoolean("res_updates", true)) {
+                    return;
+                }
+            } else if (dbName.equals("menu.db")) {
+                if (!getSharedPreferences("user_prefs", MODE_PRIVATE).getBoolean("menu_updates", true)) {
+                    return;
+                }
+            }
             String message = switch (operation) {
                 case INSERT_MENU_ITEM -> "A new item has been added to the menu! Check it out!";
                 case UPDATE_MENU_ITEM -> "A menu item has been updated";
