@@ -24,7 +24,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     private MenuItem[] menuItems;
     private final String category;
 
-    private boolean isGuest;
+    private boolean isManager;
 
     public MenuAdapter(MenuItem[] menuItems){
         this.menuItems = menuItems;
@@ -51,7 +51,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
-        isGuest = parent.getContext().getSharedPreferences("user_prefs", MODE_PRIVATE).getString("user_type", "").equals("GUEST");
+        isManager = parent.getContext().getSharedPreferences("user_prefs", MODE_PRIVATE).getString("user_type", "").equals("MANAGER");
         return new ViewHolder(view);
     }
 
@@ -63,7 +63,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.itemImage.setImageDrawable(item.getImage());
         holder.itemPrice.setText(String.format(Locale.getDefault(), "£%.2f", item.getPrice()));
         holder.layout.setOnClickListener(l -> {
-            if (!isGuest) {
+            if (isManager) {
                 Bundle args = new Bundle();
                 args.putInt("itemId", item.getId());
                 args.putString("category", category);

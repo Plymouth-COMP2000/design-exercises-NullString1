@@ -50,7 +50,6 @@ public class EditStaffFragment extends Fragment {
             return view;
         }
         staffUsername.setText(account.getUsername());
-        staffPassword.setText(account.getPassword());
         staffEmail.setText(account.getEmail());
         staffPhone.setText(account.getContact());
         staffFirstName.setText(account.getFirstname());
