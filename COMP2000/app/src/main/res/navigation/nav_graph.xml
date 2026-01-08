@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_menu"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.MenuFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menu_to_reservations"
+            app:destination="@id/guestReservationsFragment" />
+        <action
+            android:id="@+id/action_menu_to_new_reservation"
+            app:destination="@id/guestNewReservationFragment" />
+        <action
+            android:id="@+id/action_menu_to_preferences"
+            app:destination="@id/preferencesFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffAllResFragment"
+            app:destination="@id/staffAllResFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffTodayResFragment"
+            app:destination="@id/staffTodayResFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffNewResFragment"
+            app:destination="@id/staffNewResFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_staffManagement"
+            app:destination="@id/staffManagementFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_addMenuItemFragment"
+            app:destination="@id/addMenuItemFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_editMenuItemFragment"
+            app:destination="@id/editMenuItemFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/guestReservationsFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.GuestReservationsFragment"
+        android:label="My Reservations"
+        tools:layout="@layout/fragment_guest_reservations">
+        <action
+            android:id="@+id/action_reservations_to_edit"
+            app:destination="@id/guestEditReservationFragment" />
+        <action
+            android:id="@+id/action_guestRes_to_newRes"
+            app:destination="@id/guestNewReservationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/guestNewReservationFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.GuestNewReservationFragment"
+        android:label="New Reservation"
+        tools:layout="@layout/fragment_guest_new_reservation" >
+        <action
+            android:id="@+id/action_guestNewReservationFragment_to_guestReservationsFragment"
+            app:destination="@id/guestReservationsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/guestEditReservationFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.GuestEditReservationFragment"
+        android:label="Edit Reservation"
+        tools:layout="@layout/fragment_guest_edit_reservation" />
+
+    <fragment
+        android:id="@+id/editMyProfileFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.EditMyProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_my_profile" />
+
+    <fragment
+        android:id="@+id/preferencesFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.PreferencesFragment"
+        android:label="Preferences"
+        tools:layout="@layout/fragment_preferences" >
+        <action
+            android:id="@+id/action_preferencesFragment_to_editMyProfileFragment"
+            app:destination="@id/editMyProfileFragment" />
+        <action
+            android:id="@+id/action_preferencesFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffTodayResFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffTodayResFragment"
+        android:label="Today's Reservations">
+        <action
+            android:id="@+id/action_staffTodayResFragment_to_staffNewResFragment"
+            app:destination="@id/staffNewResFragment" />
+        <action
+            android:id="@+id/action_staffTodayResFragment_to_guestEditReservationFragment"
+            app:destination="@id/guestEditReservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffAllResFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffAllResFragment"
+        android:label="@string/all_reservations"
+        tools:layout="@layout/fragment_staff_all_reservations" >
+        <action
+            android:id="@+id/action_staffAllResFragment_to_guestEditReservationFragment"
+            app:destination="@id/guestEditReservationFragment" />
+        <action
+            android:id="@+id/action_staffAllResFragment_to_staffNewResFragment"
+            app:destination="@id/staffNewResFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffNewResFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffNewResFragment"
+        android:label="@string/new_reservation"
+        tools:layout="@layout/fragment_staff_new_res" />
+    <fragment
+        android:id="@+id/staffManagementFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.StaffManagementFragment"
+        android:label="Staff Mangement"
+        tools:layout="@layout/fragment_staff_management" >
+        <action
+            android:id="@+id/action_staffManagementFragment_to_editStaffFragment"
+            app:destination="@id/editStaffFragment" />
+        <action
+            android:id="@+id/action_staffManagementFragment_to_createStaffFragment"
+            app:destination="@id/createStaffFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editStaffFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.EditStaffFragment"
+        android:label="Edit Staff Member"
+        tools:layout="@layout/fragment_edit_staff" />
+    <fragment
+        android:id="@+id/createStaffFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.CreateStaffFragment"
+        android:label="Create Staff Member" />
+    <fragment
+        android:id="@+id/addMenuItemFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.AddMenuItemFragment"
+        android:label="Add Menu Item"
+        tools:layout="@layout/fragment_add_menu_item" />
+    <fragment
+        android:id="@+id/editMenuItemFragment"
+        android:name="uk.ac.plymouth.danielkern.comp2000.fragment.EditMenuItemFragment"
+        android:label="Edit Menu Item" />
+
+</navigation>
