@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import uk.ac.plymouth.danielkern.comp2000.R;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationItem;
 import uk.ac.plymouth.danielkern.comp2000.data.ReservationsDatabaseSingleton;
+import uk.ac.plymouth.danielkern.comp2000.ui.DatePicker;
 import uk.ac.plymouth.danielkern.comp2000.ui.GuestsPicker;
 import uk.ac.plymouth.danielkern.comp2000.ui.TimePicker;
 
@@ -34,10 +35,11 @@ public class GuestNewReservationFragment extends Fragment {
 
         TimePicker timePicker = view.findViewById(R.id.timePicker);
         GuestsPicker guestsPicker = view.findViewById(R.id.guestPicker);
+        DatePicker datePicker = view.findViewById(R.id.datePicker);
         Button createReservationButton = view.findViewById(R.id.submitB2);
 
         createReservationButton.setOnClickListener(v -> {
-            resDb.db.addReservation(new ReservationItem(timePicker.getTime(), guestsPicker.getGuests(), guestsPicker.getChildren(), guestsPicker.getHighChairs()));
+            resDb.db.addReservation(new ReservationItem(datePicker.getDate().atTime(timePicker.getTime().toLocalTime()), guestsPicker.getGuests(), guestsPicker.getChildren(), guestsPicker.getHighChairs()));
             Navigation.findNavController(view).navigate(R.id.action_guestNewReservationFragment_to_guestReservationsFragment);
         });
     }

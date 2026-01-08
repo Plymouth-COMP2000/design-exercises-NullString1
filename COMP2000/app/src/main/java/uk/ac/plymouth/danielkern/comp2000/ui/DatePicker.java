@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
+import java.time.LocalDate;
+
 import uk.ac.plymouth.danielkern.comp2000.R;
 
 public class DatePicker extends LinearLayout {
@@ -33,15 +35,23 @@ public class DatePicker extends LinearLayout {
         NumberPicker monthPicker = findViewById(R.id.ampmPicker);
         NumberPicker yearPicker = findViewById(R.id.yearPicker);
 
-        dayPicker.setMinValue(1);
-        dayPicker.setMaxValue(31);
+        Calendar today = Calendar.getInstance();
+        dayPicker.setMinValue(today.get(Calendar.DATE));
+        dayPicker.setMaxValue(today.getActualMaximum(Calendar.DATE));
 
-        monthPicker.setMinValue(1);
+        monthPicker.setMinValue(today.get(Calendar.MONTH)+1);
         monthPicker.setMaxValue(12);
 
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        yearPicker.setMinValue(year);
-        yearPicker.setMaxValue(year + 1);
+        yearPicker.setMinValue(today.get(Calendar.YEAR));
+        yearPicker.setMaxValue(today.get(Calendar.YEAR) + 2);
+    }
+
+    public LocalDate getDate() {
+        NumberPicker dayPicker = findViewById(R.id.hourPicker);
+        NumberPicker monthPicker = findViewById(R.id.ampmPicker);
+        NumberPicker yearPicker = findViewById(R.id.yearPicker);
+
+        return LocalDate.of(yearPicker.getValue(), monthPicker.getValue(), dayPicker.getValue());
     }
 
 

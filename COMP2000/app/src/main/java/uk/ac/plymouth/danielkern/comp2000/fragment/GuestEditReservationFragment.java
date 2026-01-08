@@ -39,7 +39,7 @@ public class GuestEditReservationFragment extends Fragment {
             reservationItem.setNumberOfGuests(guestsPicker.getGuests());
             reservationItem.setNumberOfChildren(guestsPicker.getChildren());
             reservationItem.setNumberOfHighChairs(guestsPicker.getHighChairs());
-            reservationItem.setReservationTime(timePicker.getTime());
+            reservationItem.setReservationTime(reservationItem.getReservationTime().toLocalDate().atTime(timePicker.getTime().toLocalTime()));
             resDb.db.updateReservation(reservationItem);
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
