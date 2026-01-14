@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/reservationTime"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reservationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/reservationTime"
+        app:layout_constraintEnd_toStartOf="@+id/reservationPeople"
+        app:layout_constraintStart_toEndOf="@+id/reservationTime"
+        app:layout_constraintTop_toTopOf="@+id/reservationTime" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/reservationTime"
+        app:layout_constraintEnd_toStartOf="@+id/reservationName"
+        app:layout_constraintStart_toEndOf="@+id/reservationTime"
+        app:layout_constraintTop_toTopOf="@+id/reservationTime">
+
+    </View>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/reservationTime"
+        app:layout_constraintEnd_toStartOf="@+id/reservationPeople"
+        app:layout_constraintStart_toEndOf="@+id/reservationName"
+        app:layout_constraintTop_toTopOf="@+id/reservationTime"
+        app:layout_constraintVertical_bias="0.0">
+
+    </View>
+
+    <TextView
+        android:id="@+id/reservationPeople"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="20sp"
+        app:drawableEndCompat="@drawable/baseline_people_24"
+        android:drawablePadding="2dp"
+        app:drawableTint="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/reservationName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/reservationName"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
